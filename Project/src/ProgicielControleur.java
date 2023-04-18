@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AppControleur
+ * Servlet implementation class ProgicielControleur
  */
-@WebServlet("/AppControleur")
-public class AppControleur extends HttpServlet {
+@WebServlet("/ProgicielControleur")
+public class ProgicielControleur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AppControleur() {
+    public ProgicielControleur() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,8 @@ public class AppControleur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/AppVue.jsp").forward(request, response);
+		request.getRequestDispatcher("/ProgicielVue.jsp").forward(request, response);
+
 	}
 
 	/**
