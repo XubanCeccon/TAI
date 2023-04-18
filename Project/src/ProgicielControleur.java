@@ -28,15 +28,33 @@ public class ProgicielControleur extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.getRequestDispatcher("/ProgicielVue.jsp").forward(request, response);
+		System.out.println("Username: ");
+	    System.out.println("Password: ");
 
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * La méthode doPost va recevoir le form (utilisateur et mdp)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	    // Check if the button was clicked
+	    String action = request.getParameter("action");
+
+	    if ("buttonClick".equals(action)) {
+	        processButtonClick(request, response);
+	    } else {
+	        // Handle other actions or form submissions here
+	    }
 	}
+
+	
+	protected void processButtonClick(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    // Add any required logic here before navigating to the next page
+
+	    // Forward the request to the nextPage.jsp view
+	    request.getRequestDispatcher("/mdpOublieVue.jsp").forward(request, response);
+	}
+
 
 }

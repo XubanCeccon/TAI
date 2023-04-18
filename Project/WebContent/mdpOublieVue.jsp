@@ -17,17 +17,12 @@
       	<div class="text-center mt-3">
         	<h1 class="mb-4"><i class="bi bi-calendar-event"></i>   Time Manager</h1>
         </div>
-        <form action="#" method="post">
+        <form action="/ProgicielControleur" method="post">
           <div class="mb-3">
-            <label for="email" class="form-label">Identifiant</label>
-            <input type="text" class="form-control" id="email" name="username" placeholder="Saisir l'identifiant">
+            <label for="email" class="form-label">Adresse email</label>
+            <input type="text" class="form-control" id="email" name="email" placeholder="Saisir l'identifiant">
           </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Mot de passe</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Saisir le mot de passe">
-          </div>   
-			<button type="submit" name="action" value="buttonClick" class="btn btn-secondary w-100">Login</button>
-
+              <button type="submit" class="btn btn-primary w-100">Se connecter</button>
           <br>
           <div class="text-center mt-3">
         	<a href="#">Mot de passe oublié?</a>
