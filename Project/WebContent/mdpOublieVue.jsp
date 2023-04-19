@@ -25,7 +25,7 @@
               <button type="submit" class="btn btn-primary w-100">Se connecter</button>
           <br>
           <div class="text-center mt-3">
-        	<a href="#">Mot de passe oublié?</a>
+        	<a href="ProgicielVue.jsp">back</a>	
       	  </div>
         </form>
       </div>

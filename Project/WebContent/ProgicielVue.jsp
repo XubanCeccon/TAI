@@ -30,7 +30,7 @@
 
           <br>
           <div class="text-center mt-3">
-        	<a href="#">Mot de passe oublié?</a>
+        	<a href="mdpOublieVue.jsp">Mot de passe oublié?</a>
       	  </div>
         </form>
       </div>
