@@ -26,11 +26,12 @@
             <label for="password" class="form-label">Mot de passe</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Saisir le mot de passe">
           </div>   
-			<button type="submit" name="action" value="buttonClick" class="btn btn-secondary w-100">Login</button>
+			<a href="tableauDeBord.jsp" class="btn btn-secondary w-100">Login</a>
+
 
           <br>
           <div class="text-center mt-3">
-        	<a href="mdpOublieVue.jsp">Mot de passe oublié?</a>
+        	<a href="mdpOublieVue.jsp">Mot de passe oubliï¿½?</a>
       	  </div>
         </form>
       </div>
