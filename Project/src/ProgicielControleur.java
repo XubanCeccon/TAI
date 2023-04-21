@@ -35,7 +35,7 @@ public class ProgicielControleur extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 * La méthode doPost va recevoir le form (utilisateur et mdp)
+	 * La m?thode doPost va recevoir le form (utilisateur et mdp)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    // Check if the button was clicked
