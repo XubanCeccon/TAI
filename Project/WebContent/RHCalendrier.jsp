@@ -18,6 +18,7 @@
         padding: 1rem;
         min-height: 75vh;
     }
+    
 </style>
 
 <body>
@@ -107,9 +108,16 @@
 
         </div>
         <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
-            <h2>Tab 2 Content</h2>
-            <p>Content for Tab 2 goes here...</p>
+    <div class="position-relative mt-4">
+        <h2 class="position-absolute top-0 start-4 fs-4 bg-white px-3" style="transform: translateY(-50%);">Demandes de CP</h2>
+        <div class="border p-4" style="min-height: 300px; min-width: 300px;">
+            <!-- Add your content inside this div -->
+            <p>Hello</p>
         </div>
+    </div>
+</div>
+
+
         <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
 <h2>Tab 3 Content</h2>
 <p>Content for Tab 3 goes here...</p>
