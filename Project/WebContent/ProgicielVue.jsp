@@ -31,10 +31,14 @@
 
           <br>
           <div class="text-center mt-3">
-        	<a href="mdpOublieVue.jsp">Mot de passe oubli�?</a>
+        	<a href="mdpOublieVue.jsp">Mot de passe oublie?</a>
+        	
       	  </div>
         </form>
+        <a href="Employe.jsp"><h1>Page Employe</h1></a>
+        	<a href="RH-Manager.jsp"><h1>Page RH-Manager</h1></a>
       </div>
+      
     </div>
     
     <script src="path/to/bootstrap.min.js"></script>
