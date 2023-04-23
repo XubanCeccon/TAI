@@ -13,6 +13,28 @@ $(document).ready(function(){
     $("#myTab li:eq(1) a").tab("show"); // show second tab (0-indexed, like an array)
 });
 </script>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+</head>
+<style>
+.bordered {
+	border: 1px solid #dee2e6;
+	border-radius: .25rem;
+	padding: 1rem;
+	min-height: 75vh;
+}
+</style>
+
 </head>
 <body>
 <div class="m-4">
@@ -39,8 +61,74 @@ $(document).ready(function(){
             <p>Aliquip placeat salvia cillum iphone. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
         </div>
         <div class="tab-pane fade" id="profile">
-            <h4 class="mt-2">Profile tab content</h4>
-            <p>Vestibulum nec erat eu nulla rhoncus fringilla ut non neque. Vivamus nibh urna, ornare id gravida ut, mollis a magna. Aliquam porttitor condimentum nisi, eu viverra ipsum porta ut. Nam hendrerit bibendum turpis, sed molestie mi fermentum id. Aenean volutpat velit sem. Sed consequat ante in rutrum convallis. Nunc facilisis leo at faucibus adipiscing.</p>
+            <div class="position-relative mt-4">
+                <h2 class="position-absolute top-0 start-4 fs-4 bg-white px-3"
+                    style="transform: translateY(-50%);">Demandes de CP</h2>
+                <div class="border p-4"
+                    style="min-height: 300px; min-width: 300px;">
+                    <!-- Add your content inside this div -->
+                    <div class="row align-items-center mb-3 border p-3">
+                                            <div class="col-4">
+                                                <span class="fw-bold">Congé payé </span>
+                                            </div>
+                                            <div class="col-4">
+                                                <span>Du <em>01/01/2023</em> au <em>10/01/2023</em></span>
+                                            </div>
+                                            <div class="col-4 d-flex justify-content-end">
+                                            <p> Manager    </p>
+                                                <button class="btn btn-success me-2">
+
+                                                    <i class="bi bi-check"></i>
+                                                </button>
+                                            <p> RH    </p>
+                                                <button class="btn btn-danger">
+
+                                                    <i class="bi bi-x"></i>
+                                                </button>
+                                            </div>
+                    </div>
+                    <div class="row align-items-center mb-3 border p-3">
+                                            <div class="col-4">
+                                                <span class="fw-bold">Absence exceptionnelle </span>
+                                            </div>
+                                            <div class="col-4">
+                                                <span>Du <em>01/02/2023</em> au <em>10/02/2023</em></span>
+                                            </div>
+                                            <div class="col-4 d-flex justify-content-end">
+                                            <p> Manager    </p>
+                                                <button class="btn btn-success me-2">
+
+                                                    <i class="bi bi-check"></i>
+                                                </button>
+                                            <p> RH   </p>
+                                                <button class="btn btn-success me-2">
+
+                                                    <i class="bi bi-check"></i>
+                                                </button>
+                                            </div>
+                    </div>
+                    <div class="row align-items-center mb-3 border p-3">
+                                            <div class="col-4">
+                                                <span class="fw-bold">Formation externe </span>
+                                            </div>
+                                            <div class="col-4">
+                                                <span>Du <em>20/03/2023</em> au <em>25/03/2023</em></span>
+                                            </div>
+                                            <div class="col-4 d-flex justify-content-end">
+                                            <p> Manager    </p>
+                                                <button class="btn btn-success me-2">
+
+                                                    <i class="bi bi-check"></i>
+                                                </button>
+                                            <p> RH  </p>
+                                                <button class="btn btn-danger">
+
+                                                    <i class="bi bi-x"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                </div>
+            </div>
         </div>
         <div class="tab-pane fade" id="messages">
             <h4 class="mt-2">Messages tab content</h4>
