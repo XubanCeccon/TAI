@@ -29,21 +29,11 @@ public class ProgicielControleur extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
+		UserDAOModel userDAOModel = new UserDAOModel();
+		UserBeanModel testUser = userDAOModel.findUserByEmailAndPassword("abc", "abc");
+		System.out.println("TEST: " + testUser.getNom());
+
         request.getRequestDispatcher("/ProgicielVue.jsp").forward(request, response);
-        
-        // Test database connection
-        try {
-            Connection connection = ConnexionBDDModele.getConnexion();
-            if (connection != null) {
-                System.out.println("Database connection successful!");
-                connection.close();
-            } else {
-                System.out.println("Failed to establish database connection.");
-            }
-        } catch (SQLException e) {
-            System.out.println("Error occurred while connecting to the database.");
-            e.printStackTrace();
-        }
     }
 
 

@@ -3,36 +3,38 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnexionBDDModele {
-    private static Connection connection;
+    Connection connexion;
 
-    public static Connection getConnexion() {
-        if (connection == null) {
+    // Constructor
+    public ConnexionBDDModele() {
+        try {
+            System.out.println("Chargement de pilote JDBC<-->MySQL ...");
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Pilote charged.");
+            String utilisateurBDD = "root"; 	                    // Utilisateur de la BD
+            String motdepasseBDD = ""; 			                    // Password de l'utilisateur de la BD
+            String nomBDD = "tai"; 	                                // Nom de la BD ? laquelle nous allons acceder
+            String urlBDD = "jdbc:mysql://localhost/" + nomBDD;
+            //String urlBDD = "jdbc:mysql://localhost:8889/"+nomBDD; // Pour MacOS
             try {
-                String driver = "com.mysql.cj.jdbc.Driver";
-                String url = "jdbc:mysql://localhost/tai";
-                String username = "root";
-                String password = "";
-
-                Class.forName(driver);
-                connection = DriverManager.getConnection(url, username, password);
-            } catch (ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
+                connexion = DriverManager.getConnection(urlBDD, utilisateurBDD, motdepasseBDD);
+                System.out.println("Connexion etablie avec la BDD.");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
+        } catch(ClassNotFoundException e) {
+            System.out.println(e);
         }
-        return connection;
     }
 
-    public static void main(String[] args) {
+    // Getter
+    public Connection getConnexion() { return connexion; }
+
+    // Method
+    public void fermerConnexion() {
         try {
-            Connection connection = getConnexion();
-            if (connection != null) {
-                System.out.println("Database connection successful!");
-                connection.close();
-            } else {
-                System.out.println("Failed to establish database connection.");
-            }
+            connexion.close();
         } catch (SQLException e) {
-            System.out.println("Error occurred while connecting to the database.");
             e.printStackTrace();
         }
     }
