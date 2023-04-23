@@ -1,6 +1,5 @@
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.io.IOException;
 
@@ -34,7 +33,7 @@ public class ProgicielControleur extends HttpServlet {
         
         // Test database connection
         try {
-            Connection connection = ConnectionUtil.getConnection();
+            Connection connection = ConnexionBDDModele.getConnexion();
             if (connection != null) {
                 System.out.println("Database connection successful!");
                 connection.close();

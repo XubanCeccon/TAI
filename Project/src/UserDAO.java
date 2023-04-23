@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class UserDAO {
     public User findUserByEmailAndPassword(String email, String password) {
-        Connection connection = ConnectionUtil.getConnection();
+        Connection connection = ConnexionBDDModele.getConnexion();
         User user = null;
 
         try {
