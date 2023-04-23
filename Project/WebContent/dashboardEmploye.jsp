@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 $(document).ready(function(){
-    $("#myTab li:eq(1) a").tab("show"); // show second tab (0-indexed, like an array)
+    $("#myTab li:eq(0) a").tab("show"); // show second tab (0-indexed, like an array)
 });
 </script>
 </head>
@@ -29,14 +31,13 @@ $(document).ready(function(){
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade" id="home">
-            <h4 class="mt-2">Nom</h4>
-            <p>Aliquip placeat salvia cillum iphone. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-            <h4 class="mt-2">Site</h4>
-            <p>Aliquip placeat salvia cillum iphone. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-            <h4 class="mt-2">Solde de cong&eacutes disponibles</h4>
-            <p>Aliquip placeat salvia cillum iphone. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-            <h4 class="mt-2">Jour(s) s&eacutelectionn&eacute(s)</h4>
-            <p>Aliquip placeat salvia cillum iphone. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
+            <h4 class="mt-2">Nom: ${user.prenom} ${user.nom}</h4>
+            <h4 class="mt-2">Site: ${user.site}</h4>
+            <br>
+            <h4 class="mt-2">Solde de cong&eacutes disponibles: ${user.soldeCP}</h4>
+            <h4 class="mt-2">Droit annuel de CP: ${user.droitAnnuelCP}</h4>
+            <br>
+            <h4 class="mt-2">Compteur d'absences: ${user.compteurAbsence}</h4>
         </div>
         <div class="tab-pane fade" id="profile">
             <h4 class="mt-2">Profile tab content</h4>

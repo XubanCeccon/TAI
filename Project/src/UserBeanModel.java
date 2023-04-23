@@ -3,7 +3,10 @@ public class UserBeanModel {
     private String nom;
     private String prenom;
     private String role;
-    private String email;
+    private String site;
+    private float soldeCP;
+    private float droitAnnuelCP;
+    private int compteurAbsence;
 
     public UserBeanModel() {
 
@@ -22,6 +25,15 @@ public class UserBeanModel {
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getSite() { return site; }
+    public void setSite(String site) { this.site = site; }
+
+    public float getSoldeCP() { return soldeCP; }
+    public void setSoldeCP(float soldeCP) { this.soldeCP = soldeCP; }
+
+    public float getDroitAnnuelCP() { return droitAnnuelCP; }
+    public void setDroitAnnuelCP(float droitAnnuelCP) { this.droitAnnuelCP = droitAnnuelCP; }
+
+    public int getCompteurAbsence() { return compteurAbsence; }
+    public void setCompteurAbsence(int compteurAbsence) { this.compteurAbsence = compteurAbsence; }
 }

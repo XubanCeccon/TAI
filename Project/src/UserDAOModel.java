@@ -22,7 +22,10 @@ public class UserDAOModel {
                 user.setNom(resultSet.getString("nom"));
                 user.setPrenom(resultSet.getString("prenom"));
                 user.setRole(resultSet.getString("role"));
-                user.setEmail(resultSet.getString("mail"));
+                user.setSite(resultSet.getString("id_site"));
+                user.setSoldeCP(resultSet.getFloat("solde_cp"));
+                user.setDroitAnnuelCP(resultSet.getFloat("droit_annuel_cp"));
+                user.setCompteurAbsence(resultSet.getInt("compteur_absences"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
