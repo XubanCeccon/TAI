@@ -17,7 +17,7 @@
       	<div class="text-center mt-3">
         	<h1 class="mb-4"><i class="bi bi-calendar-event"></i>   Time Manager</h1>
         </div>
-        <form action="/ProgicielControleur" method="post">
+        <form action="/LoginController" method="post">
           <div class="mb-3">
             <label for="email" class="form-label">Adresse email</label>
             <input type="text" class="form-control" id="email" name="email" placeholder="Saisir l'identifiant">
@@ -25,7 +25,7 @@
               <button type="submit" class="btn btn-primary w-100">Se connecter</button>
           <br>
           <div class="text-center mt-3">
-        	<a href="ProgicielVue.jsp">back</a>	
+        	<a href="login.jsp">back</a>
       	  </div>
         </form>
       </div>

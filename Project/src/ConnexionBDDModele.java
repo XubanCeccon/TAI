@@ -15,7 +15,7 @@ public class ConnexionBDDModele {
             String motdepasseBDD = ""; 			                    // Password de l'utilisateur de la BD
             String nomBDD = "tai"; 	                                // Nom de la BD ? laquelle nous allons acceder
             String urlBDD = "jdbc:mysql://localhost/" + nomBDD;
-            //String urlBDD = "jdbc:mysql://localhost:8889/"+nomBDD; // Pour MacOS
+
             try {
                 connexion = DriverManager.getConnection(urlBDD, utilisateurBDD, motdepasseBDD);
                 System.out.println("Connexion etablie avec la BDD.");

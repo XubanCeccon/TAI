@@ -7,7 +7,7 @@ public class UserDAOModel {
     public UserBeanModel findUserByEmailAndPassword(String email, String password) {
         ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
         Connection connexion = connexionBDDModele.getConnexion();
-        UserBeanModel user = new UserBeanModel();
+        UserBeanModel user = null;
 
         try {
             PreparedStatement statement = connexion.prepareStatement("SELECT * FROM user WHERE mail=? AND mdp=?");
@@ -17,6 +17,7 @@ public class UserDAOModel {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+                user = new UserBeanModel();
                 user.setId(resultSet.getInt("id"));
                 user.setNom(resultSet.getString("nom"));
                 user.setPrenom(resultSet.getString("prenom"));
