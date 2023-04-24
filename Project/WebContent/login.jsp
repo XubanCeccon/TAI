@@ -38,7 +38,7 @@
             <a href="mdpOublieVue.jsp">Mot de passe oublie?</a>
         </div>
 
-        <a href="dashboardEmploye.jsp"><h1>Page Employe</h1></a>
+        <a href="Employe.jsp"><h1>Page Employe</h1></a>
         <a href="RH-Manager.jsp"><h1>Page RH-Manager</h1></a>
 
     </div>
