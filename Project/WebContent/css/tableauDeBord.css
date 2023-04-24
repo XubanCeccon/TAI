@@ -1,7 +1,13 @@
-#home {
-  position: absolute;
-  left: 900px;
-  top: 200px;
-  right: 200px;
-  text-align: justify;
+.half {
+    width: 50%;
+    float: left; /* Float the classes to the left */
+    box-sizing: border-box; /* Include padding and border in width */
+    padding: 20px;
+}
+
+.bordered {
+	border: 1px solid #dee2e6;
+	border-radius: .25rem;
+	padding: 1rem;
+	min-height: 75vh;
 }
