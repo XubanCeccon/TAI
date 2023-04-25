@@ -46,10 +46,15 @@ public class LoginController extends HttpServlet {
 		UserBeanModel user = userDAOModel.findUserByEmailAndPassword(request.getParameter("email"), request.getParameter("password"));
 
 		if(user != null) {
+			if(user.getRole() == null) {
+				System.out.println("User has no role");
+				return;
+			}
+
 			System.out.println("User " + user.getNom() + " " + user.getPrenom() + " logged in");
 			request.setAttribute("user", user);
 			switch (user.getRole()) {
-				case "employe" -> request.getRequestDispatcher("/dashboardEmploye.jsp").forward(request, response);
+				case "employe" -> request.getRequestDispatcher("/Employe.jsp").forward(request, response);
 				case "manager" -> request.getRequestDispatcher("/dashboardManager.jsp").forward(request, response);
 				case "rh" -> request.getRequestDispatcher("/dashboardHR.jsp").forward(request, response);
 				default -> { }
@@ -67,12 +72,12 @@ public class LoginController extends HttpServlet {
 //	    }
 	}
 
-	
-	protected void processButtonClick(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    // Add any required logic here before navigating to the next page
 
-	    // Forward the request to the nextPage.jsp view
-	    request.getRequestDispatcher("/mdpOublieVue.jsp").forward(request, response);
+	protected void processButtonClick(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Add any required logic here before navigating to the next page
+
+		// Forward the request to the nextPage.jsp view
+		request.getRequestDispatcher("/mdpOublieVue.jsp").forward(request, response);
 	}
 
 
