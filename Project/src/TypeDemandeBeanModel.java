@@ -1,8 +1,8 @@
-public class RoleBeanModel {
+public class TypeDemandeBeanModel {
     private int id;
     private String nom;
 
-    public RoleBeanModel() {
+    public TypeDemandeBeanModel() {
 
     }
 

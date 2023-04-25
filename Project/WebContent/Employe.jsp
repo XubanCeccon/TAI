@@ -124,6 +124,7 @@
             <div class="position-relative mt-4">
                 <h2 class="position-absolute top-0 start-4 fs-4 bg-white px-3"
                     style="transform: translateY(-50%);">Demandes de CP</h2>
+
                 <div class="border p-4"
                      style="min-height: 300px; min-width: 300px;">
                     <!-- Add your content inside this div -->
