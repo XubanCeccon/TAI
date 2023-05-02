@@ -5,6 +5,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class LoginControleur
@@ -29,7 +30,7 @@ public class LoginController extends HttpServlet {
 //		UserDAOModel userDAOModel = new UserDAOModel();
 //		UserBeanModel testUser = userDAOModel.findUserByEmailAndPassword("xuban.tzu@net.estia.fr", "mdp");
 //		if(testUser != null) System.out.println("TEST: " + testUser.getNom());
-
+		// System.out.println("LOGIN CONTROLLER");
         request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
@@ -51,9 +52,12 @@ public class LoginController extends HttpServlet {
 			}
 
 			System.out.println("User " + user.getNom() + " " + user.getPrenom() + " logged in");
-			request.setAttribute("user", user);
+			// Store the user object in the session
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user);
+
 			switch (user.getRole()) {
-				case "employe" -> request.getRequestDispatcher("/Employe.jsp").forward(request, response);
+				case "employe" -> response.sendRedirect(request.getContextPath() + "/EmployeController");
 				case "manager" -> request.getRequestDispatcher("/dashboardManager.jsp").forward(request, response);
 				case "rh" -> request.getRequestDispatcher("/dashboardHR.jsp").forward(request, response);
 				default -> { }

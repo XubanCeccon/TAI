@@ -1,5 +1,7 @@
 public class UserBeanModel {
     private int id;
+    private int id_rh;
+    private int id_manager;
     private String nom;
     private String prenom;
     private String role;
@@ -15,6 +17,12 @@ public class UserBeanModel {
     // Getters and setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
+
+    public int getId_rh() { return id_rh; }
+    public void setId_rh(int id_rh) { this.id_rh = id_rh; }
+
+    public int getId_manager() { return id_manager; }
+    public void setId_manager(int id_manager) { this.id_manager = id_manager; }
 
     public String getNom() { return nom; }
     public void setNom(String nom) { this.nom = nom; }

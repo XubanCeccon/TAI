@@ -24,4 +24,25 @@ public class TypeDemandeDAOModel {
 
         return type;
     }
+
+    public TypeDemandeBeanModel findByName(String typeName) {
+        ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
+        Connection connexion = connexionBDDModele.getConnexion();
+        TypeDemandeBeanModel type = null;
+
+        try {
+            PreparedStatement statement = connexion.prepareStatement("SELECT * FROM type_demande WHERE nom=" + typeName);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                type = new TypeDemandeBeanModel();
+                type.setId(resultSet.getInt("id"));
+                type.setNom(resultSet.getString("nom"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return type;
+    }
 }

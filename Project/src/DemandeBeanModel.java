@@ -1,6 +1,8 @@
+import java.time.LocalDate;
+
 public class DemandeBeanModel {
     private int id;
-    private String typeDemande;
+    private int typeDemande;
     private String justification;
 
     private boolean validationRh;
@@ -10,6 +12,9 @@ public class DemandeBeanModel {
     private int id_rh;
     private int id_manager;
 
+    private LocalDate debut;
+    private LocalDate fin;
+
     public DemandeBeanModel() {
 
     }
@@ -17,8 +22,8 @@ public class DemandeBeanModel {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public String getTypeDemande() { return typeDemande; }
-    public void setTypeDemande(String typeDemande) { this.typeDemande = typeDemande; }
+    public int getTypeDemande() { return typeDemande; }
+    public void setTypeDemande(int typeDemande) { this.typeDemande = typeDemande; }
 
     public String getJustification() { return justification; }
     public void setJustification(String justification) { this.justification = justification; }
@@ -37,4 +42,10 @@ public class DemandeBeanModel {
 
     public int getId_manager() { return id_manager; }
     public void setId_manager(int id_manager) { this.id_manager = id_manager; }
+
+    public LocalDate getDebut() { return debut; }
+    public void setDebut(LocalDate debut) { this.debut = debut; }
+
+    public LocalDate getFin() { return fin; }
+    public void setFin(LocalDate fin) { this.fin = fin; }
 }
