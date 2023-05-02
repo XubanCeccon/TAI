@@ -49,15 +49,11 @@ public class EmployeController extends HttpServlet {
 		String fin = request.getParameter("fin");
 		String typeDemande = request.getParameter("typeDemande");
 		String justification = request.getParameter("justification");
-<<<<<<< HEAD
-		demandeDAOModel.creerDemande(id, debut, fin, typeDemande, justification);
-=======
 		System.out.println(id);
 		System.out.println(debut);
 		System.out.println(fin);
 		System.out.println(typeDemande);
 		System.out.println(justification);
->>>>>>> 1dffea37bd23a924b973bb455b1441a1731866b7
 
 		demandeDAOModel.creerDemande(id, debut, fin, typeDemande, justification);
 		doGet(request, response);
