@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOModel {
@@ -43,13 +44,14 @@ public class UserDAOModel {
         return user;
     }
 
-    public List<UserBeanModel> findUsersBySite(SiteBeanModele site) {
+    public List<UserBeanModel> findUsersByRhId(int id) {
         ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
         Connection connexion = connexionBDDModele.getConnexion();
-        List<UserBeanModel> userList = null;
+        List<UserBeanModel> userList = new ArrayList<>();
 
         try {
-            PreparedStatement statement = connexion.prepareStatement("SELECT * FROM user WHERE id_site=" + site.getId());
+            PreparedStatement statement = connexion.prepareStatement("SELECT * FROM user WHERE id_rh=?;");
+            statement.setString(1, Integer.toString(id));
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -114,5 +116,21 @@ public class UserDAOModel {
         }
 
         return user;
+    }
+
+    public void updateSolde(int user_id, float solde_disponible, float solde_annuelle) {
+        ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
+        Connection connexion = connexionBDDModele.getConnexion();
+
+        try {
+            PreparedStatement statement = connexion.prepareStatement("UPDATE user SET solde_cp=?, droit_annuel_cp=? WHERE id=?");
+            statement.setString(1, Float.toString(solde_disponible));
+            statement.setString(2, Float.toString(solde_annuelle));
+            statement.setString(3, Float.toString(user_id));
+
+            int rowsAffected = statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

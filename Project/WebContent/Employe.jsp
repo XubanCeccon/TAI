@@ -72,7 +72,7 @@
         <div class="tab-pane fade show active" id="tab1" role="tabpanel"
              aria-labelledby="tab1-tab">
             <div class="half">
-                <p>Ici, un calendrier récapitulant les jours posés.</p>
+                <p>Calendrier de la maquette récapitulant les jours posés non implémenté.</p>
             </div>
 
             <div class="half">
@@ -115,19 +115,20 @@
                         </div>
                         <div class="calendar-days"></div>
                         <div class="calendar-footer">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="start_date">
-                                <label class="form-check-label" for="start_date">
-                                    Date de début
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="end_date" checked>
-                                <label class="form-check-label" for="end_date">
-                                    Date de fin
-                                </label>
-                            </div>
-                            <button id="clear-selection-btn">Effacez la sélection</button>
+                            <p> Calendrier fonctionnel mais non implémenté au form. <br> Utiliser le form pour sélectionner les jours</p>
+<%--                            <div class="form-check">--%>
+<%--                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="start_date">--%>
+<%--                                <label class="form-check-label" for="start_date">--%>
+<%--                                    Date de début--%>
+<%--                                </label>--%>
+<%--                            </div>--%>
+<%--                            <div class="form-check">--%>
+<%--                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="end_date" checked>--%>
+<%--                                <label class="form-check-label" for="end_date">--%>
+<%--                                    Date de fin--%>
+<%--                                </label>--%>
+<%--                            </div>--%>
+<%--                            <button id="clear-selection-btn">Effacez la sélection</button>--%>
                         </div>
                     </div>
                     <div class="month-list"></div>
@@ -146,7 +147,7 @@
                     <label> Date de début: <input id="start-date" name="date_debut" type="date" required> &nbsp; </label>
                     <label> Date de fin: <input id="end-date" name="date_fin" type="date" required> </label> <br> <br>
 
-                    <select name="typeDemande">
+                    <select class="form-select" aria-label="Default select example" name="typeDemande">
                         <option value="cp">Congé Payé</option>
                         <option value="absence">Absence</option>
                     </select>

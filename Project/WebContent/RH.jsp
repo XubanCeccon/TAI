@@ -72,10 +72,25 @@
         <div class="tab-pane fade show active" id="tab1" role="tabpanel"
              aria-labelledby="tab1-tab">
             <div class="half">
-                <p>Calendrier de la maquette récapitulant les jours posés non implémenté.</p>
+                <h4> Modifier les soldes de congé d'un employé :</h4>
+                <form action="RhController" method="post">
+                    <input hidden name="formId" value="userModif">
+
+                    <select class="form-select" aria-label="Default select example" name="selected_user">
+                        ${user_list}
+                    </select>
+
+                    <br>
+
+                    <label>Solde de jours de congé payés disponibles : <input type="number" name="solde_disponible"></label> <br><br>
+                    <label>Nombre de jour de congé payé annuel : <input type="number" name="solde_annuelle"></label> <br><br>
+
+                    <button type="submit" class="btn btn-primary" id="submit-button">Valider</button>
+                </form>
             </div>
 
             <div class="half">
+<%--                <jsp:useBean id="user" scope="request" type="UserBeanModel"/>--%>
                 <h4 class="mt-2">Nom: ${user.prenom} ${user.nom}</h4>
                 <h4 class="mt-2">Site: ${user.site}</h4>
                 <br>

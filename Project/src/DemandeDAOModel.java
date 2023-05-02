@@ -199,4 +199,92 @@ public class DemandeDAOModel {
 
         return demandeList;
     }
+
+    public List<DemandeBeanModel> findCpByRhId(int id) {
+        ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
+        Connection connexion = connexionBDDModele.getConnexion();
+
+        TypeDemandeDAOModel typeDemandeDAOModel = new TypeDemandeDAOModel();
+        TypeDemandeBeanModel type = typeDemandeDAOModel.findByName("cp");
+
+        List<DemandeBeanModel> demandeList = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connexion.prepareStatement("SELECT * FROM demande WHERE id_user_rh=? AND id_type_demande=? ;");
+            statement.setString(1, Integer.toString(id));
+            statement.setString(2, Integer.toString(type.getId()));
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                boolean condition = rs.getString("id_type_demande").equals(Integer.toString(type.getId())) && (rs.getString("validation_manager") == null || !rs.getString("validation_manager").equals("1"));
+                if(condition) {
+                    DemandeBeanModel demande = new DemandeBeanModel();
+                    demande.setId(rs.getInt("id"));
+                    demande.setJustification(rs.getString("justification"));
+
+                    demande.setValidationRh(rs.getString("validation_rh") == null ? "null" : rs.getString("validation_rh"));
+                    demande.setValidationManager(rs.getString("validation_manager") == null ? "null" : rs.getString("validation_manager"));
+
+                    demande.setId_user(rs.getInt("id_user"));
+                    demande.setId_rh(rs.getInt("id_user_rh"));
+                    demande.setId_manager(rs.getInt("id_user_manager"));
+                    demande.setDebut(rs.getDate("debut").toLocalDate());
+                    demande.setFin(rs.getDate("fin").toLocalDate());
+
+                    demande.setId_typeDemande(type.getId());
+                    demande.setTypeDemande(type.getNom());
+
+                    demandeList.add(demande);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return demandeList;
+    }
+
+    public List<DemandeBeanModel> findAbsenceByRhId(int id) {
+        ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
+        Connection connexion = connexionBDDModele.getConnexion();
+
+        TypeDemandeDAOModel typeDemandeDAOModel = new TypeDemandeDAOModel();
+        TypeDemandeBeanModel type = typeDemandeDAOModel.findByName("absence");
+
+        List<DemandeBeanModel> demandeList = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connexion.prepareStatement("SELECT * FROM demande WHERE id_user_rh=? AND id_type_demande=? ;");
+            statement.setString(1, Integer.toString(id));
+            statement.setString(2, Integer.toString(type.getId()));
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                boolean condition = rs.getString("id_type_demande").equals(Integer.toString(type.getId())) && (rs.getString("validation_manager") == null || !rs.getString("validation_manager").equals("1"));
+                if(condition) {
+                    DemandeBeanModel demande = new DemandeBeanModel();
+                    demande.setId(rs.getInt("id"));
+                    demande.setJustification(rs.getString("justification"));
+
+                    demande.setValidationRh(rs.getString("validation_rh") == null ? "null" : rs.getString("validation_rh"));
+                    demande.setValidationManager(rs.getString("validation_manager") == null ? "null" : rs.getString("validation_manager"));
+
+                    demande.setId_user(rs.getInt("id_user"));
+                    demande.setId_rh(rs.getInt("id_user_rh"));
+                    demande.setId_manager(rs.getInt("id_user_manager"));
+                    demande.setDebut(rs.getDate("debut").toLocalDate());
+                    demande.setFin(rs.getDate("fin").toLocalDate());
+
+                    demande.setId_typeDemande(type.getId());
+                    demande.setTypeDemande(type.getNom());
+
+                    demandeList.add(demande);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return demandeList;
+    }
 }
