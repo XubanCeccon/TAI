@@ -62,12 +62,9 @@
 
 <div class="container mt-3">
     <ul class="nav nav-tabs" id="tabs">
-        <li class="nav-item"><a class="nav-link active" id="tab1-tab"
-                                data-bs-toggle="tab" href="#tab1">Tableau de bord</a></li>
-        <li class="nav-item"><a class="nav-link" id="tab2-tab"
-                                data-bs-toggle="tab" href="#tab2">G&eacuterer mes cong&eacutes & mes absences</a></li>
-        <li class="nav-item"><a class="nav-link" id="tab3-tab"
-                                data-bs-toggle="tab" href="#tab3">Consulter mes demandes</a></li>
+        <li class="nav-item"><a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1">Tableau de bord</a></li>
+        <li class="nav-item"><a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2">G&eacuterer mes cong&eacutes & mes absences</a></li>
+        <li class="nav-item"><a class="nav-link" id="tab3-tab" data-bs-toggle="tab" href="#tab3">Consulter mes demandes</a></li>
     </ul>
     <div class="tab-content bordered" id="tabsContent">
         <div class="tab-pane fade show active" id="tab1" role="tabpanel"
@@ -149,6 +146,7 @@
             <div class="position-relative mt-4">
                 <h2 class="position-absolute top-0 start-4 fs-4 bg-white px-3"
                     style="transform: translateY(-50%);">Demandes de CP</h2>
+
                 <div class="border p-4"
                      style="min-height: 300px; min-width: 300px;">
                     <!-- Add your content inside this div -->

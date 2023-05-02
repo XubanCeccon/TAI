@@ -21,11 +21,17 @@ public class UserDAOModel {
                 user.setId(resultSet.getInt("id"));
                 user.setNom(resultSet.getString("nom"));
                 user.setPrenom(resultSet.getString("prenom"));
-                user.setRole(resultSet.getString("role"));
+
                 user.setSite(resultSet.getString("id_site"));
                 user.setSoldeCP(resultSet.getFloat("solde_cp"));
                 user.setDroitAnnuelCP(resultSet.getFloat("droit_annuel_cp"));
                 user.setCompteurAbsence(resultSet.getInt("compteur_absences"));
+
+                RoleDAOModel roldeDAOModel = new RoleDAOModel();
+                RoleBeanModel role = roldeDAOModel.findById(resultSet.getInt("id_role"));
+
+                if(role != null) user.setRole(role.getNom());
+                else user.setRole(null);
             }
         } catch (SQLException e) {
             e.printStackTrace();
