@@ -1,3 +1,22 @@
+// Get the dropdown, textbox, submit button, and tab3 div
+const dropdown = document.getElementById('dropdown');
+const dropdownButton = dropdown.querySelector('.dropdown-toggle');
+const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+const textbox = document.getElementById('textbox');
+// const submitButton = document.getElementById('submit-button');
+// const tab3 = document.getElementById('tab3');
+
+// Set margin-top on textbox
+textbox.style.marginTop = '10px';
+
+// Add event listener to dropdown items to set dropdown button text
+dropdownMenu.addEventListener('click', function(e) {
+    if (e.target.tagName === 'A') {
+        const selectedValue = e.target.getAttribute('data-value');
+        dropdownButton.textContent = selectedValue;
+    }
+});
+
 let calendar = document.querySelector('.calendar')
 
 const month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -55,16 +74,13 @@ generateCalendar = (month, year) => {
                     let dayNum = i - first_day.getDay() + 1;
                     let confirmation = confirm(`Vous avez cliqué sur le ${curr_month} ${dayNum}. Voulez-vous poser un jour de cong&eacute ou une absence?`);
                     if (confirmation) {
-                        // Code to handle day off or absence
                         selectedDays.push(dayNum);
                         let minDay = Math.min(...selectedDays);
                         let maxDay = Math.max(...selectedDays);
                         let selectedDaysText = `Du ${minDay}/${curr_month}/${year} au ${maxDay}/${curr_month}/${year}`;
                         document.getElementById("selected-days-list").textContent = "Type de demande : en cours" + selectedDaysText;
                         document.getElementById("clicked-day").textContent = "Vous avez cliqué sur les jours suivants : " + selectedDays.join(", ");
-                        day.classList.add('selected');
                     } else {
-                        // Code to handle cancel
                     }
                 });
             }
