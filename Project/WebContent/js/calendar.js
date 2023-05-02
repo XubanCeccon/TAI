@@ -10,6 +10,8 @@ getFebDays = (year) => {
     return isLeapYear(year) ? 29 : 28
 }
 
+let selectedDays = [];
+
 generateCalendar = (month, year) => {
 
     let calendar_days = calendar.querySelector('.calendar-days')
@@ -29,32 +31,59 @@ generateCalendar = (month, year) => {
 
     // get first day of month
 
+    selectedDays = []; // Clear selectedDays at the start of each month
+
     let first_day = new Date(year, month, 1)
 
     for (let i = 0; i <= days_of_month[month] + first_day.getDay() - 1; i++) {
-        let day = document.createElement('div')
+        let day = document.createElement('div');
         if (i >= first_day.getDay()) {
-            day.classList.add('calendar-day-hover')
-            day.innerHTML = i - first_day.getDay() + 1
+            day.classList.add('calendar-day-hover');
+            day.innerHTML = i - first_day.getDay() + 1;
             day.innerHTML += `<span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>`
+                  <span></span>
+                  <span></span>
+                  <span></span>`;
             if (i - first_day.getDay() + 1 === currDate.getDate() && year === currDate.getFullYear() && month === currDate.getMonth()) {
-                day.classList.add('curr-date')
+                day.classList.add('curr-date');
             }
-            day.addEventListener('click', () => {
-                let dayNum = i - first_day.getDay() + 1;
-                let confirmation = confirm(`You have clicked on ${curr_month} ${dayNum}. Voulez-vous poser un jour de cong&eacute ou une absence?`);
-                if (confirmation) {
-                    // Code to handle day off or absence
-                } else {
-                    // Code to handle cancel
-                }
-            });
+            let currentDate = new Date(year, month, i - first_day.getDay() + 1);
+            if (currentDate <= currDate) {
+                day.classList.add('past-date');
+            } else {
+                day.addEventListener('click', () => {
+                    let dayNum = i - first_day.getDay() + 1;
+                    let confirmation = confirm(`Vous avez cliqué sur le ${curr_month} ${dayNum}. Voulez-vous poser un jour de cong&eacute ou une absence?`);
+                    if (confirmation) {
+                        // Code to handle day off or absence
+                        selectedDays.push(dayNum);
+                        let minDay = Math.min(...selectedDays);
+                        let maxDay = Math.max(...selectedDays);
+                        let selectedDaysText = `Du ${minDay}/${curr_month}/${year} au ${maxDay}/${curr_month}/${year}`;
+                        document.getElementById("selected-days-list").textContent = "Type de demande : en cours" + selectedDaysText;
+                        document.getElementById("clicked-day").textContent = "Vous avez cliqué sur les jours suivants : " + selectedDays.join(", ");
+                        day.classList.add('selected');
+                    } else {
+                        // Code to handle cancel
+                    }
+                });
+            }
+            calendar_days.appendChild(day);
         }
-        calendar_days.appendChild(day)
     }
+
+
+
+
+    let clearBtn = document.getElementById("clear-selection-btn");
+    clearBtn.addEventListener('click', () => {
+        selectedDays.forEach((day) => {
+            let selectedDay = document.querySelector(`.calendar-day-hover:nth-child(${day + first_day.getDay() - 1})`);
+            selectedDay.classList.remove('selected');
+        });
+        selectedDays = [];
+        document.getElementById("clicked-day").textContent = "Vous n'avez sélectionné aucun jour.";
+    });
 }
 
 let month_list = calendar.querySelector('.month-list')
