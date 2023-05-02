@@ -111,6 +111,9 @@
                             <div>Sat</div>
                         </div>
                         <div class="calendar-days"></div>
+                        <div class="calendar-footer">
+                            <button id="clear-selection-btn">Effacez la sélection</button>
+                        </div>
                     </div>
                     <div class="month-list"></div>
                 </div>
@@ -124,14 +127,25 @@
                 <h4 class="mt-2">Solde de cong&eacutes disponibles: ${user.soldeCP}</h4>
                 <div class="dropdown" id="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown button
+                        Type de demande
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="#" data-value="Congé payé">Congé payé</a></li>
+                        <li><a class="dropdown-item" href="#" data-value="Absence exceptionnelle">Absence exceptionnelle</a></li>
+                        <li><a class="dropdown-item" href="#" data-value="Autre">Autre</a></li>
                     </ul>
                 </div>
+
+                <div id="clicked-day"></div>
+                <div class="mt-3">
+                    <textarea class="form-control" id="textbox" rows="5" cols="50" placeholder="Justification de l'absence"></textarea>
+                    <button type="button" class="btn btn-primary mt-3" id="submit-button">Envoyer la demande</button>
+                </div>
+
+                <script src="js/dpdownsubmit.js"></script>
+                <script src="js/calendar.js"></script>
+
+
                 <p id="output"></p>
                 <script src="button.js"></script>
 
@@ -149,65 +163,8 @@
 
                 <div class="border p-4"
                      style="min-height: 300px; min-width: 300px;">
-                    <!-- Add your content inside this div -->
                     <div class="row align-items-center mb-3 border p-3">
-                        <div class="col-4">
-                            <span class="fw-bold">Congé payé </span>                        </div>
-                        <div class="col-4">
-                            <span>Du <em>01/01/2023</em> au <em>10/01/2023</em></span>
-                        </div>
-                        <div class="col-4 d-flex justify-content-end">
-                            <p> Manager </p>
-                            <button class="btn btn-success me-2">
-
-                                <i class="bi bi-check"></i>
-                            </button>
-                            <p> RH </p>
-                            <button class="btn btn-danger">
-
-                                <i class="bi bi-x"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row align-items-center mb-3 border p-3">
-                        <div class="col-4">
-                            <span class="fw-bold">Absence exceptionnelle </span>
-                        </div>
-                        <div class="col-4">
-                            <span>Du <em>01/02/2023</em> au <em>10/02/2023</em></span>
-                        </div>
-                        <div class="col-4 d-flex justify-content-end">
-                            <p> Manager </p>
-                            <button class="btn btn-success me-2">
-
-                                <i class="bi bi-check"></i>
-                            </button>
-                            <p> RH </p>
-                            <button class="btn btn-success me-2">
-
-                                <i class="bi bi-check"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row align-items-center mb-3 border p-3">
-                        <div class="col-4">
-                            <span class="fw-bold">Formation externe </span>
-                        </div>
-                        <div class="col-4">
-                            <span>Du <em>20/03/2023</em> au <em>25/03/2023</em></span>
-                        </div>
-                        <div class="col-4 d-flex justify-content-end">
-                            <p> Manager </p>
-                            <button class="btn btn-success me-2">
-
-                                <i class="bi bi-check"></i>
-                            </button>
-                            <p> RH </p>
-                            <button class="btn btn-danger">
-
-                                <i class="bi bi-x"></i>
-                            </button>
-                        </div>
+                        <div id="selected-days-list"></div>
                     </div>
 
                 </div>

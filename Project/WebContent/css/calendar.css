@@ -269,3 +269,7 @@
         opacity: 1;
     }
 }
+
+.selected {
+    background-color: #a0ffa0;
+}
