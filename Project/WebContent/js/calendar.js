@@ -43,6 +43,15 @@ generateCalendar = (month, year) => {
             if (i - first_day.getDay() + 1 === currDate.getDate() && year === currDate.getFullYear() && month === currDate.getMonth()) {
                 day.classList.add('curr-date')
             }
+            day.addEventListener('click', () => {
+                let dayNum = i - first_day.getDay() + 1;
+                let confirmation = confirm(`You have clicked on ${curr_month} ${dayNum}. Voulez-vous poser un jour de cong&eacute ou une absence?`);
+                if (confirmation) {
+                    // Code to handle day off or absence
+                } else {
+                    // Code to handle cancel
+                }
+            });
         }
         calendar_days.appendChild(day)
     }
@@ -83,10 +92,3 @@ document.querySelector('#next-year').onclick = () => {
     ++curr_year.value
     generateCalendar(curr_month.value, curr_year.value)
 }
-
-// let dark_mode_toggle = document.querySelector('.dark-mode-switch')
-//
-// dark_mode_toggle.onclick = () => {
-//     document.querySelector('body').classList.toggle('light')
-//     document.querySelector('body').classList.toggle('dark')
-// }
