@@ -51,15 +51,15 @@ public class LoginController extends HttpServlet {
 				return;
 			}
 
-			System.out.println("User " + user.getNom() + " " + user.getPrenom() + " logged in");
+			System.out.println("User " + user.getPrenom() + " " + user.getNom() + " logged in");
 			// Store the user object in the session
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
 
 			switch (user.getRole()) {
 				case "employe" -> response.sendRedirect(request.getContextPath() + "/EmployeController");
-				case "manager" -> request.getRequestDispatcher("/dashboardManager.jsp").forward(request, response);
-				case "rh" -> request.getRequestDispatcher("/dashboardHR.jsp").forward(request, response);
+				case "manager" -> response.sendRedirect(request.getContextPath() + "/ManagerController");
+				case "rh" -> response.sendRedirect(request.getContextPath() + "/RhController");
 				default -> { }
 			}
 		} else {

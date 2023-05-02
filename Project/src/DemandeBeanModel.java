@@ -6,8 +6,8 @@ public class DemandeBeanModel {
     private String typeDemande;
     private String justification;
 
-    private boolean validationRh;
-    private boolean validationManager;
+    private String validationRh;
+    private String validationManager;
 
     private int id_user;
     private int id_rh;
@@ -32,11 +32,11 @@ public class DemandeBeanModel {
     public String getJustification() { return justification; }
     public void setJustification(String justification) { this.justification = justification; }
 
-    public boolean isValidationRh() { return validationRh; }
-    public void setValidationRh(boolean validationRh) { this.validationRh = validationRh; }
+    public String isValidatedByRh() { return validationRh; }
+    public void setValidationRh(String validationRh) { this.validationRh = validationRh; }
 
-    public boolean isValidationManager() { return validationManager; }
-    public void setValidationManager(boolean validationManager) { this.validationManager = validationManager; }
+    public String isValidatedByManager() { return validationManager; }
+    public void setValidationManager(String validationManager) { this.validationManager = validationManager; }
 
     public int getId_user() { return id_user; }
     public void setId_user(int id_user) { this.id_user = id_user; }

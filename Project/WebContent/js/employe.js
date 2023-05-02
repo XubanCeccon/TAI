@@ -1,7 +1,7 @@
 // Get the dropdown, textbox, submit button, and tab3 div
 const dropdown = document.getElementById('dropdown');
-const dropdownButton = dropdown.querySelector('.dropdown-toggle');
-const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+// const dropdownButton = dropdown.querySelector('.dropdown-toggle');
+// const dropdownMenu = dropdown.querySelector('.dropdown-menu');
 const textbox = document.getElementById('textbox');
 const submitButton = document.getElementById('submit-button');
 // const tab3 = document.getElementById('tab3');
@@ -10,12 +10,12 @@ const submitButton = document.getElementById('submit-button');
 textbox.style.marginTop = '10px';
 
 // Add event listener to dropdown items to set dropdown button text
-dropdownMenu.addEventListener('click', function(e) {
-    if (e.target.tagName === 'A') {
-        const selectedValue = e.target.getAttribute('data-value');
-        dropdownButton.textContent = selectedValue;
-    }
-});
+// dropdownMenu.addEventListener('click', function(e) {
+//     if (e.target.tagName === 'A') {
+//         const selectedValue = e.target.getAttribute('data-value');
+//         dropdownButton.textContent = selectedValue;
+//     }
+// });
 
 let calendar = document.querySelector('.calendar')
 
@@ -157,18 +157,33 @@ submitButton.addEventListener('click', function() {
     textNode.style.borderTop = "1px solid gray";
     //document.getElementById("selected-days-list").appendChild(textNode);
     // console.log(user.prenom);
-    $.post("/EmployeController", {
-        user: '1',
-        debut: `${minDay}/0${curr_month.value}/${curr_year.value}`,
-        fin:`${maxDay}/0${curr_month.value}/${curr_year.value}`,
-        typeDemande:dropdownButton.getAttribute("data-value"),
-        justification:'.',
-    })
-        .done(function(data) {
-            console.log("POST request succeeded with response:", data);
-        })
-        .fail(function(xhr, status, error) {
-            console.error("POST request failed with status:", status, "error:", error);
-        });
+    // console.log(`0${minDay}/0${curr_month.value}/${curr_year.value}`);
+    // console.log(`0${maxDay}/0${curr_month.value}/${curr_year.value}`);
+    // console.log(document.getElementById("typeDemandeValue").textContent);
+    const min_date = `${minDay}/${curr_month.value}/${curr_year.value}`;
+    const min_parts = min_date.split('/'); // split the date string into an array of parts
+    const min_paddedParts = min_parts.map(part => part.padStart(2, '0')); // add leading zeros using padStart()
+    const min_formattedDate = min_paddedParts.join('/'); // join the parts back together with slashes
+
+    const max_date = `${maxDay}/${curr_month.value}/${curr_year.value}`;
+    const max_parts = max_date.split('/'); // split the date string into an array of parts
+    const max_paddedParts = max_parts.map(part => part.padStart(2, '0')); // add leading zeros using padStart()
+    const max_formattedDate = max_paddedParts.join('/'); // join the parts back together with slashes
+
+    let startDate = document.getElementById("start_date").checked;
+    let endDate = !startDate;
+    console.log(startDate, endDate);
+
+    // $.post("/EmployeController", {
+    //     user: '1',
+    //     debut: min_formattedDate,
+    //     fin: max_formattedDate,
+    //     typeDemande: document.getElementById("typeDemandeValue").textContent,
+    //     justification:'.',
+    // }).done(function(data) {
+    //     console.log("POST request succeeded with response:", data);
+    // }).fail(function(xhr, status, error) {
+    //     console.error("POST request failed with status:", status, "error:", error);
+    // });
 
 });

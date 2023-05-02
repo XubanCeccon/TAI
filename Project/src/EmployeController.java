@@ -32,8 +32,39 @@ public class EmployeController extends HttpServlet {
 
 		DemandeDAOModel demandeDAOModel = new DemandeDAOModel();
 		List<DemandeBeanModel> demandeList = demandeDAOModel.findByUserId(user.getId());
-		request.setAttribute("demandeList", demandeList);
 
+		String table_body = "";
+		for(DemandeBeanModel demande: demandeList) {
+			String typeDemande = demande.getTypeDemande();
+			switch(demande.getTypeDemande()) {
+				case "cp" -> typeDemande = "Congé Payé";
+				case "absence" -> typeDemande = "Absence exceptionnelle";
+			}
+
+			String traitementManager = demande.isValidatedByManager();
+			switch (traitementManager) {
+				case "null" -> traitementManager = "<span style='color: grey'> Non traité </span>";
+				case "1" -> traitementManager = "<span style='color: green'> Validé </span>";
+				case "0" -> traitementManager = "<span style='color: red'> Refusé </span>";
+			}
+
+			String traitementRh = demande.isValidatedByRh();
+			switch (traitementRh) {
+				case "null" -> traitementRh = "<span style='color: grey'> Non traité </span>";
+				case "1" -> traitementRh = "<span style='color: green'> Validé </span>";
+				case "0" -> traitementRh = "<span style='color: red'> Refusé </span>";
+			}
+
+			table_body += "<tr>" +
+				"<td>" + typeDemande + "</td>" +
+				"<td>" + demande.getDebut() + "</td>" +
+				"<td>" + demande.getFin() + "</td>" +
+				"<td>" + traitementManager + "</td>" +
+				"<td>" + traitementRh + "</td>" +
+			"</tr>";
+		}
+
+		request.setAttribute("table_body", table_body);
         request.getRequestDispatcher("/Employe.jsp").forward(request, response);
     }
 
@@ -43,28 +74,15 @@ public class EmployeController extends HttpServlet {
 	 * La m?thode doPost va recevoir le form (utilisateur et mdp)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DemandeDAOModel demandeDAOModel = new DemandeDAOModel();
-		int id = Integer.parseInt(request.getParameter("id"));
-		String debut = request.getParameter("debut");
-		String fin = request.getParameter("fin");
+		int id = Integer.parseInt(request.getParameter("user"));
+		String debut = request.getParameter("date_debut");
+		String fin = request.getParameter("date_fin");
 		String typeDemande = request.getParameter("typeDemande");
 		String justification = request.getParameter("justification");
-		System.out.println(id);
-		System.out.println(debut);
-		System.out.println(fin);
-		System.out.println(typeDemande);
-		System.out.println(justification);
-
+		
+		DemandeDAOModel demandeDAOModel = new DemandeDAOModel();
 		demandeDAOModel.creerDemande(id, debut, fin, typeDemande, justification);
 		doGet(request, response);
-	}
-
-
-	protected void processButtonClick(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Add any required logic here before navigating to the next page
-
-		// Forward the request to the nextPage.jsp view
-		request.getRequestDispatcher("/mdpOublieVue.jsp").forward(request, response);
 	}
 
 

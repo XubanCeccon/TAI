@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RH Calendrier</title>
+    <title>Dashboard</title>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -48,14 +50,13 @@
 
 <body>
 
-<header
-        class="d-flex justify-content-between align-items-center px-3 py-2">
+<header class="d-flex justify-content-between align-items-center px-3 py-2">
     <div class="d-flex align-items-center">
         <i class="bi bi-calendar-event fs-3 me-2"></i>
         <h3 class="mb-0">Time Manager</h3>
     </div>
     <button class="btn btn-outline-secondary">
-        <i class="bi bi-person-circle"></i>
+        <i class="bi bi-person-circle"><a href="LoginController"></a></i>
     </button>
 </header>
 
@@ -75,6 +76,7 @@
             </div>
 
             <div class="half">
+<%--                <jsp:useBean id="user" scope="request" type="UserBeanModel"/>--%>
                 <h4 class="mt-2">Nom: ${user.prenom} ${user.nom}</h4>
                 <h4 class="mt-2">Site: ${user.site}</h4>
                 <br>
@@ -113,6 +115,18 @@
                         </div>
                         <div class="calendar-days"></div>
                         <div class="calendar-footer">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="start_date">
+                                <label class="form-check-label" for="start_date">
+                                    Date de début
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="end_date" checked>
+                                <label class="form-check-label" for="end_date">
+                                    Date de fin
+                                </label>
+                            </div>
                             <button id="clear-selection-btn">Effacez la sélection</button>
                         </div>
                     </div>
@@ -126,26 +140,27 @@
                 <h4 class="mt-2">Site: ${user.site}</h4>
                 <br>
                 <h4 class="mt-2">Solde de cong&eacutes disponibles: ${user.soldeCP}</h4>
-                <div class="dropdown" id="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Type de demande
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" data-value="cp">Congé payé</a></li>
-                        <li><a class="dropdown-item" href="#" data-value="absence">Absence exceptionnelle</a></li>
-                        <li><a class="dropdown-item" href="#" data-value="Autre">Autre</a></li>
-                    </ul>
-                </div>
+                <br>
+                <form action="EmployeController" method="post">
+                    <input hidden name="user" value="${user.id}">
+                    <label> Date de début: <input id="start-date" name="date_debut" type="date" required> &nbsp; </label>
+                    <label> Date de fin: <input id="end-date" name="date_fin" type="date" required> </label> <br> <br>
 
-                <div id="clicked-day"></div>
-                <div class="mt-3">
+                    <select name="typeDemande">
+                        <option value="cp">Congé Payé</option>
+                        <option value="absence">Absence</option>
+                    </select>
+
+                    <br><br>
+
                     <textarea class="form-control" id="textbox" rows="5" cols="50" placeholder="Justification de l'absence"></textarea>
-                    <button type="button" class="btn btn-primary mt-3" id="submit-button">Envoyer la demande</button>
-                </div>
+
+                    <button type="submit" class="btn btn-primary mt-3" id="submit-button">Envoyer la demande</button>
+                </form>
 
                 <script src="js/employe.js"></script>
                 <p id="output"></p>
-                <script src="button.js"></script>
+                <script src="js/button.js"></script>
 
 
             </div>
@@ -153,37 +168,23 @@
         </div>
 
 
-        <div class="tab-pane fade" id="tab3" role="tabpanel"
-             aria-labelledby="tab3-tab">
+        <div class="tab-pane fade" id="tab3" role="tabpanel"aria-labelledby="tab3-tab">
             <div class="position-relative mt-4">
-                <h2 class="position-absolute top-0 start-4 fs-4 bg-white px-3"
-                    style="transform: translateY(-50%);">Demandes de CP</h2>
+                <h2 class="position-absolute top-0 start-4 fs-4 bg-white px-3" style="transform: translateY(-50%);">Demandes de CP </h2>
 
-                <div class="border p-4"
-                     style="min-height: 300px; min-width: 300px;">
-                    <div class="row align-items-center mb-3 border p-3">
-                        <div id="selected-days-list" class="bordered"></div>
-                    </div>
+                <div class="border p-4" style="min-height: 300px; min-width: 300px;">
                     <table class="table table-striped-columns border border-secondary rounded">
                         <thead>
-                        <tr>
-                            <th>Type de demande</th>
-                            <th>Date de début</th>
-                            <th>Date de fin</th>
-                            <th>Manager</th>
-                            <th>RH</th>
-                        </tr>
+                            <tr>
+                                <th>Type de demande</th>
+                                <th>Date de début</th>
+                                <th>Date de fin</th>
+                                <th>Manager</th>
+                                <th>RH</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${demandeList}" var="demande">
-                                <tr>
-                                    <td> <c:out value="${demande.typeDemande}" /> </td>
-                                    <td> <c:out value="${demande.debut}" /> </td>
-                                    <td> <c:out value="${demande.fin}" /> </td>
-                                    <td> <c:out value="${demande.validation_manager}" /> </td>
-                                    <td> <c:out value="${demande.validation_rh}" /> </td>
-                                </tr>
-                            </c:forEach>
+                            ${table_body}
                         </tbody>
                     </table>
                 </div>

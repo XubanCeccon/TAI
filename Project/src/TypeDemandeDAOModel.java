@@ -31,7 +31,8 @@ public class TypeDemandeDAOModel {
         TypeDemandeBeanModel type = null;
 
         try {
-            PreparedStatement statement = connexion.prepareStatement("SELECT * FROM type_demande WHERE nom=" + typeName);
+            PreparedStatement statement = connexion.prepareStatement("SELECT * FROM type_demande WHERE nom=? ;");
+            statement.setString(1, typeName);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {

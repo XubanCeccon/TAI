@@ -93,8 +93,8 @@ public class UserDAOModel {
             if (resultSet.next()) {
                 user = new UserBeanModel();
                 user.setId(resultSet.getInt("id"));
-                user.setId(resultSet.getInt("id"));
                 user.setId_rh(resultSet.getInt("id_rh"));
+                user.setId_manager(resultSet.getInt("id_manager"));
                 user.setNom(resultSet.getString("nom"));
                 user.setPrenom(resultSet.getString("prenom"));
 
