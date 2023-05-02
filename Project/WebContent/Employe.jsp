@@ -117,7 +117,7 @@
                     </div>
                     <div class="month-list"></div>
                 </div>
-                <script src="js/calendar.js"></script>
+
             </div>
 
             <div class="half">
@@ -142,10 +142,7 @@
                     <button type="button" class="btn btn-primary mt-3" id="submit-button">Envoyer la demande</button>
                 </div>
 
-                <script src="js/dpdownsubmit.js"></script>
-                <script src="js/calendar.js"></script>
-
-
+                <script src="js/employe.js"></script>
                 <p id="output"></p>
                 <script src="button.js"></script>
 
@@ -164,7 +161,7 @@
                 <div class="border p-4"
                      style="min-height: 300px; min-width: 300px;">
                     <div class="row align-items-center mb-3 border p-3">
-                        <div id="selected-days-list"></div>
+                        <div id="selected-days-list" class="bordered"></div>
                     </div>
 
                 </div>

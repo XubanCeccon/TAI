@@ -3,7 +3,7 @@ const dropdown = document.getElementById('dropdown');
 const dropdownButton = dropdown.querySelector('.dropdown-toggle');
 const dropdownMenu = dropdown.querySelector('.dropdown-menu');
 const textbox = document.getElementById('textbox');
-// const submitButton = document.getElementById('submit-button');
+const submitButton = document.getElementById('submit-button');
 // const tab3 = document.getElementById('tab3');
 
 // Set margin-top on textbox
@@ -72,14 +72,10 @@ generateCalendar = (month, year) => {
             } else {
                 day.addEventListener('click', () => {
                     let dayNum = i - first_day.getDay() + 1;
-                    let confirmation = confirm(`Vous avez cliqué sur le ${curr_month} ${dayNum}. Voulez-vous poser un jour de cong&eacute ou une absence?`);
+                    let confirmation = confirm(`Vous avez clique sur le ${curr_month} ${dayNum}. Voulez-vous poser un jour de conges ou une absence?`);
                     if (confirmation) {
                         selectedDays.push(dayNum);
-                        let minDay = Math.min(...selectedDays);
-                        let maxDay = Math.max(...selectedDays);
-                        let selectedDaysText = `Du ${minDay}/${curr_month}/${year} au ${maxDay}/${curr_month}/${year}`;
-                        document.getElementById("selected-days-list").textContent = "Type de demande : en cours" + selectedDaysText;
-                        document.getElementById("clicked-day").textContent = "Vous avez cliqué sur les jours suivants : " + selectedDays.join(", ");
+                        document.getElementById("clicked-day").textContent = "Vous avez clique sur les jours suivants : " + selectedDays.join(", ");
                     } else {
                     }
                 });
@@ -98,7 +94,7 @@ generateCalendar = (month, year) => {
             selectedDay.classList.remove('selected');
         });
         selectedDays = [];
-        document.getElementById("clicked-day").textContent = "Vous n'avez sélectionné aucun jour.";
+        document.getElementById("clicked-day").textContent = "Vous n'avez sélectionne aucun jour.";
     });
 }
 
@@ -137,3 +133,21 @@ document.querySelector('#next-year').onclick = () => {
     ++curr_year.value
     generateCalendar(curr_month.value, curr_year.value)
 }
+
+
+submitButton.addEventListener('click', function() {
+    let minDay = Math.min(...selectedDays);
+    let maxDay = Math.max(...selectedDays);
+    let selectedDaysText = `Du ${minDay}/${curr_month.value}/${curr_year.value} au ${maxDay}/${curr_month.value}/${curr_year.value}`;
+    let textNode = document.createElement("p");
+    let typeDemande = document.createElement("strong");
+    typeDemande.textContent = "Type de demande: ";
+    textNode.appendChild(typeDemande);
+    textNode.appendChild(document.createTextNode(dropdownButton.textContent));
+    textNode.appendChild(document.createElement("br"));
+    textNode.appendChild(document.createTextNode("---------------------------------"));
+    textNode.appendChild(document.createElement("br"));
+    textNode.appendChild(document.createTextNode(selectedDaysText));
+    textNode.style.borderTop = "1px solid gray";
+    document.getElementById("selected-days-list").appendChild(textNode);
+});
