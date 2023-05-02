@@ -1,3 +1,22 @@
+// Get the dropdown, textbox, submit button, and tab3 div
+const dropdown = document.getElementById('dropdown');
+const dropdownButton = dropdown.querySelector('.dropdown-toggle');
+const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+const textbox = document.getElementById('textbox');
+const submitButton = document.getElementById('submit-button');
+// const tab3 = document.getElementById('tab3');
+
+// Set margin-top on textbox
+textbox.style.marginTop = '10px';
+
+// Add event listener to dropdown items to set dropdown button text
+dropdownMenu.addEventListener('click', function(e) {
+    if (e.target.tagName === 'A') {
+        const selectedValue = e.target.getAttribute('data-value');
+        dropdownButton.textContent = selectedValue;
+    }
+});
+
 let calendar = document.querySelector('.calendar')
 
 const month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -47,24 +66,23 @@ generateCalendar = (month, year) => {
             if (i - first_day.getDay() + 1 === currDate.getDate() && year === currDate.getFullYear() && month === currDate.getMonth()) {
                 day.classList.add('curr-date');
             }
+            let lastSelectedDay;
             let currentDate = new Date(year, month, i - first_day.getDay() + 1);
             if (currentDate <= currDate) {
                 day.classList.add('past-date');
             } else {
                 day.addEventListener('click', () => {
                     let dayNum = i - first_day.getDay() + 1;
-                    let confirmation = confirm(`Vous avez cliqué sur le ${curr_month} ${dayNum}. Voulez-vous poser un jour de cong&eacute ou une absence?`);
-                    if (confirmation) {
-                        // Code to handle day off or absence
-                        selectedDays.push(dayNum);
-                        let minDay = Math.min(...selectedDays);
-                        let maxDay = Math.max(...selectedDays);
-                        let selectedDaysText = `Du ${minDay}/${curr_month}/${year} au ${maxDay}/${curr_month}/${year}`;
-                        document.getElementById("selected-days-list").textContent = "Type de demande : en cours" + selectedDaysText;
-                        document.getElementById("clicked-day").textContent = "Vous avez cliqué sur les jours suivants : " + selectedDays.join(", ");
-                        day.classList.add('selected');
-                    } else {
-                        // Code to handle cancel
+                    if (selectedDays.length === 0 || dayNum === selectedDays[selectedDays.length - 1] + 1) {
+                        let confirmation = confirm(`Vous avez clique sur le ${dayNum} ${curr_month} . Voulez-vous poser un jour de conges ou une absence?`);
+                        if (confirmation) {
+                            selectedDays.push(dayNum);
+                            document.getElementById("clicked-day").textContent = "Vous avez clique sur les jours suivants : " + selectedDays.join(", ");
+                        }
+                    }
+
+                    else {
+                        alert("Vous ne pouvez sélectionner que des jours consécutifs.");
                     }
                 });
             }
@@ -82,7 +100,7 @@ generateCalendar = (month, year) => {
             selectedDay.classList.remove('selected');
         });
         selectedDays = [];
-        document.getElementById("clicked-day").textContent = "Vous n'avez sélectionné aucun jour.";
+        document.getElementById("clicked-day").textContent = "Vous n'avez sélectionne aucun jour.";
     });
 }
 
@@ -121,3 +139,36 @@ document.querySelector('#next-year').onclick = () => {
     ++curr_year.value
     generateCalendar(curr_month.value, curr_year.value)
 }
+
+
+submitButton.addEventListener('click', function() {
+    let minDay = Math.min(...selectedDays);
+    let maxDay = Math.max(...selectedDays);
+    let selectedDaysText = `Du ${minDay}/${curr_month.value}/${curr_year.value} au ${maxDay}/${curr_month.value}/${curr_year.value}`;
+    let textNode = document.createElement("p");
+    let typeDemande = document.createElement("strong");
+    typeDemande.textContent = "Type de demande: ";
+    textNode.appendChild(typeDemande);
+    textNode.appendChild(document.createTextNode(dropdownButton.textContent));
+    textNode.appendChild(document.createElement("br"));
+    textNode.appendChild(document.createTextNode("---------------------------------"));
+    textNode.appendChild(document.createElement("br"));
+    textNode.appendChild(document.createTextNode(selectedDaysText));
+    textNode.style.borderTop = "1px solid gray";
+    //document.getElementById("selected-days-list").appendChild(textNode);
+    // console.log(user.prenom);
+    $.post("/EmployeController", {
+        user: '1',
+        debut: `${minDay}/0${curr_month.value}/${curr_year.value}`,
+        fin:`${maxDay}/0${curr_month.value}/${curr_year.value}`,
+        typeDemande:dropdownButton.getAttribute("data-value"),
+        justification:'.',
+    })
+        .done(function(data) {
+            console.log("POST request succeeded with response:", data);
+        })
+        .fail(function(xhr, status, error) {
+            console.error("POST request failed with status:", status, "error:", error);
+        });
+
+});
