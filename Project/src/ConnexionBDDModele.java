@@ -8,9 +8,9 @@ public class ConnexionBDDModele {
     // Constructor
     public ConnexionBDDModele() {
         try {
-            System.out.println("Chargement de pilote JDBC<-->MySQL ...");
+            // System.out.println("Chargement de pilote JDBC<-->MySQL ...");
             Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Pilote charged.");
+            // System.out.println("Pilote charged.");
             String utilisateurBDD = "root"; 	                    // Utilisateur de la BD
             String motdepasseBDD = ""; 			                    // Password de l'utilisateur de la BD
             String nomBDD = "tai"; 	                                // Nom de la BD ? laquelle nous allons acceder
@@ -18,7 +18,7 @@ public class ConnexionBDDModele {
 
             try {
                 connexion = DriverManager.getConnection(urlBDD, utilisateurBDD, motdepasseBDD);
-                System.out.println("Connexion etablie avec la BDD.");
+                // System.out.println("Connexion etablie avec la BDD.");
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
