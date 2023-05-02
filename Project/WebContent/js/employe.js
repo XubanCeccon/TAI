@@ -66,17 +66,23 @@ generateCalendar = (month, year) => {
             if (i - first_day.getDay() + 1 === currDate.getDate() && year === currDate.getFullYear() && month === currDate.getMonth()) {
                 day.classList.add('curr-date');
             }
+            let lastSelectedDay;
             let currentDate = new Date(year, month, i - first_day.getDay() + 1);
             if (currentDate <= currDate) {
                 day.classList.add('past-date');
             } else {
                 day.addEventListener('click', () => {
                     let dayNum = i - first_day.getDay() + 1;
-                    let confirmation = confirm(`Vous avez clique sur le ${curr_month} ${dayNum}. Voulez-vous poser un jour de conges ou une absence?`);
-                    if (confirmation) {
-                        selectedDays.push(dayNum);
-                        document.getElementById("clicked-day").textContent = "Vous avez clique sur les jours suivants : " + selectedDays.join(", ");
-                    } else {
+                    if (selectedDays.length === 0 || dayNum === selectedDays[selectedDays.length - 1] + 1) {
+                        let confirmation = confirm(`Vous avez clique sur le ${dayNum} ${curr_month} . Voulez-vous poser un jour de conges ou une absence?`);
+                        if (confirmation) {
+                            selectedDays.push(dayNum);
+                            document.getElementById("clicked-day").textContent = "Vous avez clique sur les jours suivants : " + selectedDays.join(", ");
+                        }
+                    }
+
+                    else {
+                        alert("Vous ne pouvez sélectionner que des jours consécutifs.");
                     }
                 });
             }
@@ -149,5 +155,20 @@ submitButton.addEventListener('click', function() {
     textNode.appendChild(document.createElement("br"));
     textNode.appendChild(document.createTextNode(selectedDaysText));
     textNode.style.borderTop = "1px solid gray";
-    document.getElementById("selected-days-list").appendChild(textNode);
+    //document.getElementById("selected-days-list").appendChild(textNode);
+    // console.log(user.prenom);
+    $.post("/EmployeController", {
+        user: '1',
+        debut: `${minDay}/0${curr_month.value}/${curr_year.value}`,
+        fin:`${maxDay}/0${curr_month.value}/${curr_year.value}`,
+        typeDemande:dropdownButton.getAttribute("data-value"),
+        justification:'.',
+    })
+        .done(function(data) {
+            console.log("POST request succeeded with response:", data);
+        })
+        .fail(function(xhr, status, error) {
+            console.error("POST request failed with status:", status, "error:", error);
+        });
+
 });

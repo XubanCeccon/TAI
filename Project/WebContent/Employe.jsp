@@ -12,6 +12,7 @@
             rel="stylesheet"
             integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
             crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
@@ -102,13 +103,13 @@
                     </div>
                     <div class="calendar-body">
                         <div class="calendar-week-day">
-                            <div>Sun</div>
-                            <div>Mon</div>
-                            <div>Tue</div>
-                            <div>Wed</div>
-                            <div>Thu</div>
-                            <div>Fri</div>
-                            <div>Sat</div>
+                            <div>Lun</div>
+                            <div>Mar</div>
+                            <div>Mer</div>
+                            <div>Jeu</div>
+                            <div>Ven</div>
+                            <div>Sam</div>
+                            <div>Dim</div>
                         </div>
                         <div class="calendar-days"></div>
                         <div class="calendar-footer">
@@ -130,8 +131,8 @@
                         Type de demande
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" data-value="Congé payé">Congé payé</a></li>
-                        <li><a class="dropdown-item" href="#" data-value="Absence exceptionnelle">Absence exceptionnelle</a></li>
+                        <li><a class="dropdown-item" href="#" data-value="cp">Congé payé</a></li>
+                        <li><a class="dropdown-item" href="#" data-value="absence">Absence exceptionnelle</a></li>
                         <li><a class="dropdown-item" href="#" data-value="Autre">Autre</a></li>
                     </ul>
                 </div>
