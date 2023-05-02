@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Servlet implementation class LoginControleur
@@ -29,7 +30,9 @@ public class EmployeController extends HttpServlet {
 		HttpSession session = request.getSession();
 		UserBeanModel user = (UserBeanModel) session.getAttribute("user");
 
-
+		DemandeDAOModel demandeDAOModel = new DemandeDAOModel();
+		List<DemandeBeanModel> demandeList = demandeDAOModel.findByUserId(user.getId());
+		request.setAttribute("demandeList", demandeList);
 
         request.getRequestDispatcher("/Employe.jsp").forward(request, response);
     }
@@ -40,6 +43,13 @@ public class EmployeController extends HttpServlet {
 	 * La m?thode doPost va recevoir le form (utilisateur et mdp)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		DemandeDAOModel demandeDAOModel = new DemandeDAOModel();
+		int id = Integer.parseInt(request.getParameter("id"));
+		String debut = request.getParameter("debut");
+		String fin = request.getParameter("fin");
+		String typeDemande = request.getParameter("typeDemande");
+		String justification = request.getParameter("justification");
+		demandeDAOModel.creerDemande(id, debut, fin, typeDemande, justification);
 
 		doGet(request, response);
 	}

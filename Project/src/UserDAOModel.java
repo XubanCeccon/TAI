@@ -79,4 +79,40 @@ public class UserDAOModel {
 
         return userList;
     }
+
+    public UserBeanModel findUserById(int id) {
+        ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
+        Connection connexion = connexionBDDModele.getConnexion();
+        UserBeanModel user = null;
+
+        try {
+            PreparedStatement statement = connexion.prepareStatement("SELECT * FROM user WHERE id=" + id);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                user = new UserBeanModel();
+                user.setId(resultSet.getInt("id"));
+                user.setId(resultSet.getInt("id"));
+                user.setId_rh(resultSet.getInt("id_rh"));
+                user.setNom(resultSet.getString("nom"));
+                user.setPrenom(resultSet.getString("prenom"));
+
+                user.setSite(resultSet.getString("id_site"));
+                user.setSoldeCP(resultSet.getFloat("solde_cp"));
+                user.setDroitAnnuelCP(resultSet.getFloat("droit_annuel_cp"));
+                user.setCompteurAbsence(resultSet.getInt("compteur_absences"));
+
+                RoleDAOModel roldeDAOModel = new RoleDAOModel();
+                RoleBeanModel role = roldeDAOModel.findById(resultSet.getInt("id_role"));
+
+                if(role != null) user.setRole(role.getNom());
+                else user.setRole(null);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
 }

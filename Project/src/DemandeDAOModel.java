@@ -30,7 +30,10 @@ public class DemandeDAOModel {
                 TypeDemandeDAOModel typeDemandeDAOModel = new TypeDemandeDAOModel();
                 TypeDemandeBeanModel typeDemande = typeDemandeDAOModel.findById(resultSet.getInt("id_type_demande"));
 
-                if(typeDemande != null) demande.setTypeDemande(typeDemande.getId());
+                if(typeDemande != null) {
+                    demande.setId_typeDemande(typeDemande.getId());
+                    demande.setTypeDemande(typeDemande.getNom());
+                }
 
                 demandeList.add(demande);
             }
@@ -62,6 +65,37 @@ public class DemandeDAOModel {
                 user.getId() + ", " + user.getId_rh() + ", " + user.getId_manager() +
                 java.sql.Date.valueOf(formatted_debut)  + ", " + java.sql.Date.valueOf(formatted_fin) +
             ");");
+
+            ResultSet resultSet = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void creerDemande(int user_id, String debut, String fin, String typeDemande, String justification) {
+        ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
+        Connection connexion = connexionBDDModele.getConnexion();
+
+        try {
+            UserDAOModel userDAOModel = new UserDAOModel();
+            UserBeanModel user = userDAOModel.findUserById(user_id);
+
+            TypeDemandeDAOModel typeDemandeDAOModel = new TypeDemandeDAOModel();
+            TypeDemandeBeanModel type = typeDemandeDAOModel.findByName(typeDemande);
+
+            String[] date_debut = debut.split("/");
+            LocalDate formatted_debut = LocalDate.of(Integer.parseInt(date_debut[2]), Integer.parseInt(date_debut[1]), Integer.parseInt(date_debut[0]));
+            String[] date_fin = fin.split("/");
+            LocalDate formatted_fin = LocalDate.of(Integer.parseInt(date_fin[2]), Integer.parseInt(date_fin[1]), Integer.parseInt(date_fin[0]));
+
+            PreparedStatement statement = statement = connexion.prepareStatement("INSERT INTO demande (" +
+                    "id_type_demande, justification, validation_rh, validation_manager, " +
+                    "id_user, id_user_rh, id_user_manager, debut, fin" +
+                    ") VALUES (" +
+                    type.getId() + ", " + justification + ", " + null + ", " + null + ", " +
+                    user.getId() + ", " + user.getId_rh() + ", " + user.getId_manager() +
+                    java.sql.Date.valueOf(formatted_debut)  + ", " + java.sql.Date.valueOf(formatted_fin) +
+                    ");");
 
             ResultSet resultSet = statement.executeQuery();
         } catch (SQLException e) {

@@ -166,7 +166,28 @@
                     <div class="row align-items-center mb-3 border p-3">
                         <div id="selected-days-list"></div>
                     </div>
-
+                    <table class="table table-striped-columns border border-secondary rounded">
+                        <thead>
+                        <tr>
+                            <th>Type de demande</th>
+                            <th>Date de début</th>
+                            <th>Date de fin</th>
+                            <th>Manager</th>
+                            <th>RH</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${demandeList}" var="demande">
+                                <tr>
+                                    <td> <c:out value="${demande.typeDemande}" /> </td>
+                                    <td> <c:out value="${demande.debut}" /> </td>
+                                    <td> <c:out value="${demande.fin}" /> </td>
+                                    <td> <c:out value="${demande.validation_manager}" /> </td>
+                                    <td> <c:out value="${demande.validation_rh}" /> </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -2,7 +2,8 @@ import java.time.LocalDate;
 
 public class DemandeBeanModel {
     private int id;
-    private int typeDemande;
+    private int id_typeDemande;
+    private String typeDemande;
     private String justification;
 
     private boolean validationRh;
@@ -22,8 +23,11 @@ public class DemandeBeanModel {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public int getTypeDemande() { return typeDemande; }
-    public void setTypeDemande(int typeDemande) { this.typeDemande = typeDemande; }
+    public int getId_typeDemande() { return id_typeDemande; }
+    public void setId_typeDemande(int id_typeDemande) { this.id_typeDemande = id_typeDemande; }
+
+    public String getTypeDemande() { return typeDemande; }
+    public void setTypeDemande(String typeDemande) { this.typeDemande = typeDemande; }
 
     public String getJustification() { return justification; }
     public void setJustification(String justification) { this.justification = justification; }
