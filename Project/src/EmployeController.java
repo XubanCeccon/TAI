@@ -37,22 +37,22 @@ public class EmployeController extends HttpServlet {
 		for(DemandeBeanModel demande: demandeList) {
 			String typeDemande = demande.getTypeDemande();
 			switch(demande.getTypeDemande()) {
-				case "cp" -> typeDemande = "Congé Payé";
-				case "absence" -> typeDemande = "Absence exceptionnelle";
+				case "cp": typeDemande = "Congé Payé"; break;
+				case "absence": typeDemande = "Absence exceptionnelle"; break;
 			}
 
 			String traitementManager = demande.isValidatedByManager();
 			switch (traitementManager) {
-				case "null" -> traitementManager = "<span style='color: grey'> Non traité </span>";
-				case "1" -> traitementManager = "<span style='color: green'> Validé </span>";
-				case "0" -> traitementManager = "<span style='color: red'> Refusé </span>";
+				case "null": traitementManager = "<span style='color: grey'> Non traité </span>"; break;
+				case "1": traitementManager = "<span style='color: green'> Validé </span>"; break;
+				case "0": traitementManager = "<span style='color: red'> Refusé </span>"; break;
 			}
 
 			String traitementRh = demande.isValidatedByRh();
 			switch (traitementRh) {
-				case "null" -> traitementRh = "<span style='color: grey'> Non traité </span>";
-				case "1" -> traitementRh = "<span style='color: green'> Validé </span>";
-				case "0" -> traitementRh = "<span style='color: red'> Refusé </span>";
+				case "null": traitementRh = "<span style='color: grey'> Non traité </span>"; break;
+				case "1": traitementRh = "<span style='color: green'> Validé </span>"; break;
+				case "0": traitementRh = "<span style='color: red'> Refusé </span>"; break;
 			}
 
 			table_body += "<tr>" +

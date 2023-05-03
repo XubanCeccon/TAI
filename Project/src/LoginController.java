@@ -57,10 +57,10 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("user", user);
 
 			switch (user.getRole()) {
-				case "employe" -> response.sendRedirect(request.getContextPath() + "/EmployeController");
-				case "manager" -> response.sendRedirect(request.getContextPath() + "/ManagerController");
-				case "rh" -> response.sendRedirect(request.getContextPath() + "/RhController");
-				default -> { }
+				case "employe": response.sendRedirect(request.getContextPath() + "/EmployeController"); break;
+				case "manager": response.sendRedirect(request.getContextPath() + "/ManagerController"); break;
+				case "rh": response.sendRedirect(request.getContextPath() + "/RhController"); break;
+				default: break;
 			}
 		} else {
 			System.out.println("User not found");
