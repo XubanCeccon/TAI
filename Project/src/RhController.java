@@ -5,7 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Servlet implementation class LoginControleur
@@ -40,25 +43,25 @@ public class RhController extends HttpServlet {
 			UserBeanModel demande_user = userDAOModel.findUserById(demande.getId_user());
 
 			cp_list += "<div class='d-flex justify-content-between'>" +
-				"<p> " + demande_user.getPrenom() + " " + demande_user.getNom() + " &nbsp; " + "</p>" +
-				"<p>" + demande.getDebut() + " à " + demande.getFin() + "</p>" +
-				"<div class='d-flex justify-content-between'>" +
+					"<p> " + demande_user.getPrenom() + " " + demande_user.getNom() + " &nbsp; " + "</p>" +
+					"<p>" + demande.getDebut() + " à " + demande.getFin() + "</p>" +
+					"<div class='d-flex justify-content-between'>" +
 					"<form action='RhController' method='post'>" +
-						"<input hidden name='formId' value='demande'>" +
-						"<input hidden name='demande_id' value='" + demande.getId() + "'>" +
-						"<input hidden name='user_id' value='" + user.getId() + "'>" +
-						"<input hidden name='valid' value='true'>" +
-						"<button type='submit' class='btn btn-success' id='submit-button'>Valider</button>" +
+					"<input hidden name='formId' value='demande'>" +
+					"<input hidden name='demande_id' value='" + demande.getId() + "'>" +
+					"<input hidden name='user_id' value='" + user.getId() + "'>" +
+					"<input hidden name='valid' value='true'>" +
+					"<button type='submit' class='btn btn-success' id='submit-button'>Valider</button>" +
 					"</form>" +
 					"<form action='RhController' method='post'>" +
-						"<input hidden name='formId' value='demande'>" +
-						"<input hidden name='demande_id' value='" + demande.getId() + "'>" +
-						"<input hidden name='user_id' value='" + user.getId() + "'>" +
-						"<input hidden name='valid' value='false'>" +
-						"<button type='submit' class='btn btn-danger' id='submit-button'>Refuser</button>" +
+					"<input hidden name='formId' value='demande'>" +
+					"<input hidden name='demande_id' value='" + demande.getId() + "'>" +
+					"<input hidden name='user_id' value='" + user.getId() + "'>" +
+					"<input hidden name='valid' value='false'>" +
+					"<button type='submit' class='btn btn-danger' id='submit-button'>Refuser</button>" +
 					"</form>" +
-				"</div>" +
-			"</div>";
+					"</div>" +
+					"</div>";
 		}
 
 		String absence_list = "";
@@ -66,28 +69,36 @@ public class RhController extends HttpServlet {
 			UserBeanModel demande_user = userDAOModel.findUserById(demande.getId_user());
 
 			absence_list += "<div class='d-flex justify-content-between'>" +
-				"<p> " + demande_user.getPrenom() + " " + demande_user.getNom() + " &nbsp; " + "</p>" +
-				"<p>" + demande.getDebut() + " à " + demande.getFin() + "</p>" +
-				"<div class='d-flex justify-content-between'>" +
+					"<p> " + demande_user.getPrenom() + " " + demande_user.getNom() + " &nbsp; " + "</p>" +
+					"<p>" + demande.getDebut() + " à " + demande.getFin() + "</p>" +
+					"<div class='d-flex justify-content-between'>" +
 					"<p>" + demande.getJustification() + "</p>" +
 					"<form action='RhController' method='post'>" +
-					  	"<input hidden name='formId' value='demande'>" +
-						"<input hidden name='demande_id' value='" + demande.getId() + "'>" +
-						"<input hidden name='user_id' value='" + user.getId() + "'>" +
-						"<input hidden name='valid' value='true'>" +
-						"<button type='submit' class='btn btn-success' id='submit-button'>Valider</button>" +
+					"<input hidden name='formId' value='demande'>" +
+					"<input hidden name='demande_id' value='" + demande.getId() + "'>" +
+					"<input hidden name='user_id' value='" + user.getId() + "'>" +
+					"<input hidden name='valid' value='true'>" +
+					"<button type='submit' class='btn btn-success' id='submit-button'>Valider</button>" +
 					"</form>" +
-				"</div>" +
-			"</div>";
+					"</div>" +
+					"</div>";
 		}
 
 		String user_list = "";
+		StringBuilder userMap = new StringBuilder("{");
 		List<UserBeanModel> userList = userDAOModel.findUsersByRhId(user.getId());
-		for(UserBeanModel userIndex: userList) {
+		for (int i = 0; i < userList.size(); i++) {
+			UserBeanModel userIndex = userList.get(i);
+			userMap.append("\"").append(userIndex.getId()).append("\":[\"").append(userIndex.getSoldeCP()).append("\", \"").append(userIndex.getDroitAnnuelCP()).append("\", \"").append(userIndex.getCompteurAbsence()).append("\"]");
+			if (i < userList.size() - 1) {
+				userMap.append(",");
+			}
 			user_list += "<option value='" + userIndex.getId() + "'> " + userIndex.getPrenom() + " " + userIndex.getNom() + " </option> \r\n";
 		}
+		userMap.append("}");
 
 		request.setAttribute("user_list", user_list);
+		request.setAttribute("user_map", userMap);
 		request.setAttribute("cp_list", cp_list);
 		request.setAttribute("absence_list", absence_list);
         request.getRequestDispatcher("/RH.jsp").forward(request, response);
@@ -111,9 +122,10 @@ public class RhController extends HttpServlet {
 			int user_id = Integer.parseInt(request.getParameter("selected_user"));
 			float solde_disponible = Float.parseFloat(request.getParameter("solde_disponible"));
 			float solde_annuelle = Float.parseFloat(request.getParameter("solde_annuelle"));
+			int compteur_absence = Integer.parseInt(request.getParameter("compteur_absence"));
 
 			UserDAOModel userDAOModel = new UserDAOModel();
-			userDAOModel.updateSolde(user_id, solde_disponible, solde_annuelle);
+			userDAOModel.updateSolde(user_id, solde_disponible, solde_annuelle, compteur_absence);
 		}
 
 		doGet(request, response);

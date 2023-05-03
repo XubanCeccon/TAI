@@ -118,15 +118,16 @@ public class UserDAOModel {
         return user;
     }
 
-    public void updateSolde(int user_id, float solde_disponible, float solde_annuelle) {
+    public void updateSolde(int user_id, float solde_disponible, float solde_annuelle, int compteur_absence) {
         ConnexionBDDModele connexionBDDModele = new ConnexionBDDModele();
         Connection connexion = connexionBDDModele.getConnexion();
 
         try {
-            PreparedStatement statement = connexion.prepareStatement("UPDATE user SET solde_cp=?, droit_annuel_cp=? WHERE id=?");
+            PreparedStatement statement = connexion.prepareStatement("UPDATE user SET solde_cp=?, droit_annuel_cp=?, compteur_absences=? WHERE id=?");
             statement.setString(1, Float.toString(solde_disponible));
             statement.setString(2, Float.toString(solde_annuelle));
-            statement.setString(3, Float.toString(user_id));
+            statement.setString(3, Float.toString(compteur_absence));
+            statement.setString(4, Float.toString(user_id));
 
             int rowsAffected = statement.executeUpdate();
         } catch (SQLException e) {

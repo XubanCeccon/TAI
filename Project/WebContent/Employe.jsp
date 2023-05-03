@@ -55,9 +55,11 @@
         <i class="bi bi-calendar-event fs-3 me-2"></i>
         <h3 class="mb-0">Time Manager</h3>
     </div>
-    <button class="btn btn-outline-secondary">
-        <i class="bi bi-person-circle"><a href="LoginController"></a></i>
-    </button>
+    <a href="LoginController">
+        <button class="btn btn-outline-secondary">
+            <i class="bi bi-person-circle"></i>
+        </button>
+    </a>
 </header>
 
 <hr>
@@ -147,14 +149,16 @@
                     <label> Date de début: <input id="start-date" name="date_debut" type="date" required> &nbsp; </label>
                     <label> Date de fin: <input id="end-date" name="date_fin" type="date" required> </label> <br> <br>
 
-                    <select class="form-select" aria-label="Default select example" name="typeDemande">
+                    <select class="form-select" aria-label="Default select example" name="typeDemande" id="selected_type">
                         <option value="cp">Congé Payé</option>
                         <option value="absence">Absence</option>
                     </select>
 
-                    <br><br>
+                    <br>
 
                     <textarea class="form-control" id="textbox" rows="5" cols="50" placeholder="Justification de l'absence"></textarea>
+
+                    <br>
 
                     <button type="submit" class="btn btn-primary mt-3" id="submit-button">Envoyer la demande</button>
                 </form>
@@ -191,10 +195,27 @@
                 </div>
             </div>
         </div>
-
-
     </div>
-
 </div>
+
+<script>
+    const typeSelect = document.getElementById('selected_type');
+    const textarea = document.getElementById('textbox');
+
+    // Update input values based on the selected user
+    function hideTextarea() {
+        console.log(typeSelect.value === "cp"); // Debugging
+
+        if (typeSelect.value === "cp") textarea.style.visibility = "hidden";
+        else textarea.style.visibility = "visible";
+    }
+
+    // Listen to the change event of the userSelect
+    typeSelect.addEventListener('change', hideTextarea);
+
+    // Set initial input values based on the initially selected user
+    hideTextarea();
+</script>
+
 </body>
 </html>

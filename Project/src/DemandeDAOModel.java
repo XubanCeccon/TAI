@@ -63,8 +63,6 @@ public class DemandeDAOModel {
             LocalDate formatted_debut = LocalDate.of(Integer.parseInt(date_debut[0]), Integer.parseInt(date_debut[1]), Integer.parseInt(date_debut[2]));
             String[] date_fin = fin.split("-");
             LocalDate formatted_fin = LocalDate.of(Integer.parseInt(date_fin[0]), Integer.parseInt(date_fin[1]), Integer.parseInt(date_fin[2]));
-            System.out.println(user.getId_rh());
-            System.out.println(user.getId_manager());
 
             PreparedStatement statement = connexion.prepareStatement("INSERT INTO demande (" +
                 "id_type_demande, justification, validation_rh, validation_manager, " +
@@ -128,7 +126,7 @@ public class DemandeDAOModel {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                boolean condition = rs.getString("id_type_demande").equals(Integer.toString(type.getId())) && (rs.getString("validation_manager") == null || !rs.getString("validation_manager").equals("1"));
+                boolean condition = rs.getString("id_type_demande").equals(Integer.toString(type.getId())) && rs.getString("validation_manager") == null;
                 if(condition) {
                     DemandeBeanModel demande = new DemandeBeanModel();
                     demande.setId(rs.getInt("id"));
@@ -172,7 +170,7 @@ public class DemandeDAOModel {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                boolean condition = rs.getString("id_type_demande").equals(Integer.toString(type.getId())) && (rs.getString("validation_manager") == null || !rs.getString("validation_manager").equals("1"));
+                boolean condition = rs.getString("id_type_demande").equals(Integer.toString(type.getId())) && rs.getString("validation_manager") == null;
                 if(condition) {
                     DemandeBeanModel demande = new DemandeBeanModel();
                     demande.setId(rs.getInt("id"));
@@ -216,7 +214,7 @@ public class DemandeDAOModel {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                boolean condition = rs.getString("id_type_demande").equals(Integer.toString(type.getId())) && (rs.getString("validation_manager") == null || !rs.getString("validation_manager").equals("1"));
+                boolean condition = rs.getString("id_type_demande").equals(Integer.toString(type.getId())) && rs.getString("validation_rh") == null;
                 if(condition) {
                     DemandeBeanModel demande = new DemandeBeanModel();
                     demande.setId(rs.getInt("id"));
@@ -260,26 +258,26 @@ public class DemandeDAOModel {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                boolean condition = rs.getString("id_type_demande").equals(Integer.toString(type.getId())) && (rs.getString("validation_manager") == null || !rs.getString("validation_manager").equals("1"));
-                if(condition) {
-                    DemandeBeanModel demande = new DemandeBeanModel();
-                    demande.setId(rs.getInt("id"));
-                    demande.setJustification(rs.getString("justification"));
+                    boolean condition = rs.getString("id_type_demande").equals(Integer.toString(type.getId())) && rs.getString("validation_rh") == null;
+                    if(condition) {
+                        DemandeBeanModel demande = new DemandeBeanModel();
+                        demande.setId(rs.getInt("id"));
+                        demande.setJustification(rs.getString("justification"));
 
-                    demande.setValidationRh(rs.getString("validation_rh") == null ? "null" : rs.getString("validation_rh"));
-                    demande.setValidationManager(rs.getString("validation_manager") == null ? "null" : rs.getString("validation_manager"));
+                        demande.setValidationRh(rs.getString("validation_rh") == null ? "null" : rs.getString("validation_rh"));
+                        demande.setValidationManager(rs.getString("validation_manager") == null ? "null" : rs.getString("validation_manager"));
 
-                    demande.setId_user(rs.getInt("id_user"));
-                    demande.setId_rh(rs.getInt("id_user_rh"));
-                    demande.setId_manager(rs.getInt("id_user_manager"));
-                    demande.setDebut(rs.getDate("debut").toLocalDate());
-                    demande.setFin(rs.getDate("fin").toLocalDate());
+                        demande.setId_user(rs.getInt("id_user"));
+                        demande.setId_rh(rs.getInt("id_user_rh"));
+                        demande.setId_manager(rs.getInt("id_user_manager"));
+                        demande.setDebut(rs.getDate("debut").toLocalDate());
+                        demande.setFin(rs.getDate("fin").toLocalDate());
 
-                    demande.setId_typeDemande(type.getId());
-                    demande.setTypeDemande(type.getNom());
+                        demande.setId_typeDemande(type.getId());
+                        demande.setTypeDemande(type.getNom());
 
-                    demandeList.add(demande);
-                }
+                        demandeList.add(demande);
+                    }
             }
         } catch (SQLException e) {
             e.printStackTrace();

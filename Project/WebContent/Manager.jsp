@@ -55,18 +55,20 @@
         <i class="bi bi-calendar-event fs-3 me-2"></i>
         <h3 class="mb-0">Time Manager</h3>
     </div>
-    <button class="btn btn-outline-secondary">
-        <i class="bi bi-person-circle"><a href="LoginController"></a></i>
-    </button>
+    <a href="LoginController">
+        <button class="btn btn-outline-secondary">
+            <i class="bi bi-person-circle"></i>
+        </button>
+    </a>
 </header>
 
 <hr>
 
 <div class="container mt-3">
     <ul class="nav nav-tabs" id="tabs">
-        <li class="nav-item"><a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1">Tableau de bord</a></li>
-        <li class="nav-item"><a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2">G&eacuterer mes cong&eacutes & mes absences</a></li>
-        <li class="nav-item"><a class="nav-link" id="tab3-tab" data-bs-toggle="tab" href="#tab3">Consulter mes demandes</a></li>
+        <li class="nav-item"><a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1">Calendrier</a></li>
+        <li class="nav-item"><a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2">Demandes de CP</a></li>
+        <li class="nav-item"><a class="nav-link" id="tab3-tab" data-bs-toggle="tab" href="#tab3">Absences exceptionnelles</a></li>
     </ul>
     <div class="tab-content bordered" id="tabsContent">
         <div class="tab-pane fade show active" id="tab1" role="tabpanel"

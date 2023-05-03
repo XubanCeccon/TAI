@@ -34,10 +34,10 @@
             $("#myTab li:eq(1) a").tab("show"); // show second tab (0-indexed, like an array)
         });
     </script>
-    <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous">
+    </script>
 </head>
 <style>
     .bordered {
@@ -55,18 +55,20 @@
         <i class="bi bi-calendar-event fs-3 me-2"></i>
         <h3 class="mb-0">Time Manager</h3>
     </div>
-    <button class="btn btn-outline-secondary">
-        <i class="bi bi-person-circle"><a href="LoginController"></a></i>
-    </button>
+    <a href="LoginController">
+        <button class="btn btn-outline-secondary">
+            <i class="bi bi-person-circle"></i>
+        </button>
+    </a>
 </header>
 
 <hr>
 
 <div class="container mt-3">
     <ul class="nav nav-tabs" id="tabs">
-        <li class="nav-item"><a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1">Tableau de bord</a></li>
-        <li class="nav-item"><a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2">G&eacuterer mes cong&eacutes & mes absences</a></li>
-        <li class="nav-item"><a class="nav-link" id="tab3-tab" data-bs-toggle="tab" href="#tab3">Consulter mes demandes</a></li>
+        <li class="nav-item"><a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1">Gestion des soldes employés</a></li>
+        <li class="nav-item"><a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2">Demandes de CP</a></li>
+        <li class="nav-item"><a class="nav-link" id="tab3-tab" data-bs-toggle="tab" href="#tab3">Absences exceptionnelles</a></li>
     </ul>
     <div class="tab-content bordered" id="tabsContent">
         <div class="tab-pane fade show active" id="tab1" role="tabpanel"
@@ -76,28 +78,30 @@
                 <form action="RhController" method="post">
                     <input hidden name="formId" value="userModif">
 
-                    <select class="form-select" aria-label="Default select example" name="selected_user">
+                    <select class="form-select" aria-label="Default select example" name="selected_user" id="selected_user">
                         ${user_list}
                     </select>
 
                     <br>
 
-                    <label>Solde de jours de congé payés disponibles : <input type="number" name="solde_disponible"></label> <br><br>
-                    <label>Nombre de jour de congé payé annuel : <input type="number" name="solde_annuelle"></label> <br><br>
+                    <label>Solde de jours de congé payés disponibles : <input type="number" name="solde_disponible" id="solde_disponible"></label> <br><br>
+                    <label>Nombre de jour de congé payé annuel : <input type="number" name="solde_annuelle" id="solde_annuelle"></label> <br><br>
+                    <label>Compteur d'absence annuel : <input type="number" name="compteur_absence" id="compteur_absence"></label> <br><br>
 
-                    <button type="submit" class="btn btn-primary" id="submit-button">Valider</button>
+                    <button type="submit" class="btn btn-primary" id="submit-button">Modifier</button>
                 </form>
+<%--                <script src="js/userRhForm.js"></script>--%>
             </div>
 
             <div class="half">
-<%--                <jsp:useBean id="user" scope="request" type="UserBeanModel"/>--%>
-                <h4 class="mt-2">Nom: ${user.prenom} ${user.nom}</h4>
-                <h4 class="mt-2">Site: ${user.site}</h4>
+                <h4> Connecté en tant que: </h4> <br>
+                <h5 class="mt-2">Nom: ${user.prenom} ${user.nom}</h5>
+                <h5 class="mt-2">Site: ${user.site}</h5>
                 <br>
-                <h4 class="mt-2">Solde de cong&eacutes disponibles: ${user.soldeCP}</h4>
-                <h4 class="mt-2">Droit annuel de CP: ${user.droitAnnuelCP}</h4>
+                <h5 class="mt-2">Solde de cong&eacutes disponibles: ${user.soldeCP}</h5>
+                <h5 class="mt-2">Droit annuel de CP: ${user.droitAnnuelCP}</h5>
                 <br>
-                <h4 class="mt-2">Compteur d'absences: ${user.compteurAbsence}</h4>
+                <h5 class="mt-2">Compteur d'absences: ${user.compteurAbsence}</h5>
             </div>
 
         </div>
@@ -120,10 +124,38 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 
 </div>
+
+<script>
+    const userSelect = document.getElementById('selected_user');
+    const soldeDisponibleInput = document.getElementById('solde_disponible');
+    const soldeAnnuelleInput = document.getElementById('solde_annuelle');
+    const compteurAbsenceInput = document.getElementById('compteur_absence');
+
+    // Convert userMap to a JavaScript object
+    const userMap = JSON.parse('${user_map}');
+
+    // Update input values based on the selected user
+    function updateInputValues() {
+        console.log('Updating input values'); // Debugging
+        const selectedUserId = parseInt(userSelect.value);
+        const soldesOfSelectedUser = userMap[selectedUserId];
+
+        if (soldesOfSelectedUser) {
+            soldeDisponibleInput.value = soldesOfSelectedUser[0];
+            soldeAnnuelleInput.value = soldesOfSelectedUser[1];
+            compteurAbsenceInput.value = soldesOfSelectedUser[2]
+        }
+    }
+
+    // Listen to the change event of the userSelect
+    userSelect.addEventListener('change', updateInputValues);
+
+    // Set initial input values based on the initially selected user
+    updateInputValues();
+</script>
+
 </body>
 </html>
